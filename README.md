@@ -161,7 +161,7 @@ Chaque rendu devra contenir :
 
 - un programme qui compile dont les sources sont dans le répertoire `src/`,
 - un diagramme de classes à jour placé dans le répertoire `uml/` ayant pour nom `semaine<numero>.puml`,
-- un rapport dans le fichier `semaine<numero>.md` indiquant quelles fonctionnalités ont été implémentées, la responsabilité de chaque classe.
+- un rapport dans le fichier `rapport.md` indiquant vos choix de conception actuels, quelles fonctionnalités ont été implémentées, les difficultés rencontrées et ce que vous planifiez de faire pour le rendu suivant.
 
 La structure du dépôt git sera la suivante :
 ```bash
