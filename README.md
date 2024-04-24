@@ -25,6 +25,23 @@ C'est un jeu à **deux joueurs** où les dresseurs s'affrontent en plaçant sur 
 
 De plus, il y aura un rendu hebdomadaire **chaque dimanche à minuit**, hors vacances scolaires.
 
+
+## Planning indicatif
+
+C'est un planning indicatif qui donne simplement une trame de ce qu'il faudrait avoir si on a une progression linéaire. Il n'est pas à respecter impérativement.
+
+- **Semaine 1** : Première version de la conception générale du projet et début de l'implémentation.  
+_Fonctionalités_ :
+  - un pokémon est capable d'en attaquer un autre sans gestion des affinités, ni d'une pioche, ni d'une défausse, etc.
+- **Semaine 2** : Conception générale finalisée et suite de l'implémentation.  
+_Fonctionalités_ :
+  - gestion des affinités
+  - gestion des mains, pioches et défausses et terrain
+- **Semaine 3** : Début d'interface utilisateur avec gestion des entrées clavier  
+_Fonctionalités_ :
+  - gestion des tours de jeux
+
+
 ## Le jeu
 
 Il s'agit d'un jeu avec un joueur humain face à l'ordinateur, qui se joue **au tour par tour**. Le gagnant est celui qui parvient à **éliminer tous les Pokémons de son adversaire**.
@@ -162,13 +179,13 @@ Il n'est pas nécessaire de reproduire le visuel tel quel mais toutes les inform
 
 À la fin du jeu, un écran affiche "Vous avez perdu" ou "Vous avez gagné" et indique le nombre de Pokémons restants au gagnant.
 
-## Rendus
+## Rendus hebdomadaires
 
 Votre projet doit être un fork de ce dépôt dans un groupe ayant pour nom `<nom_etudiant_1>-<nom_etudiant_2>`.
 Votre enseignant en TP et le responsable du module doivent être ajoutés comme Reporter à votre projet.
 
 Vous devez effectuer un rendu par semaine au plus tard le dimanche soir à minuit : la régularité des rendus sera prise en compte dans l'évaluation.
-Un rendu est une branche qui a pour nom `Rendu<numéro-rendu>`.
+Un rendu est une branche qui a pour nom `rendu<numéro-rendu>`.
 Le dernier rendu sera évalué en tant que rendu final.
 
 Chaque rendu doit contenir :
@@ -192,10 +209,18 @@ La structure du dépôt git doit être la suivante :
     ├──...
 ```
 
-## Planning indicatif
-- rendu 1 : affichage permettant seulement d'afficher le plateau des Pokémons (terrain et main)
-- rendu 2 : le jeu est jouable : les Pokémons peuvent s'attaquer, il est possible de piocher des Pokémons et de les placer sur le terrain.
+## Rendus évalués
 
+#### 1er rendu : 19 mai
+
+Seront évalués :
+
+- Diagramme de classes complet de la phase 1
+  - respect des conventions UML
+- Code 
+  - cohérence avec l'UML
+- Rapport
+  - Justifications des choix de conception qui font référence au diagramme UML
 
 ## Quelques consignes
 
