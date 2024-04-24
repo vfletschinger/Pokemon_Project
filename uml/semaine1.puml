@@ -1,0 +1,127 @@
+ @startuml
+'https://plantuml.com/sequence-diagram
+
+
+'configuration du style
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+
+
+class Game {
+	+ {static} main( args:String[] )
+}
+
+class Pokemon {
+    - _name : String
+    - {static} _pokemonList : String[0..*]
+    - _life : Integer
+    - _attack : Integer
+    + <<create>> Pokemon()
+    - chooseNamePokemon() : String
+    - chooseAffinityPokemon() : String
+    - chooseLifePokemon() : Integer
+    - chooseAttackPokemon() : Integer
+    + attackPokemon(pokemon : Pokemon)
+    + getName() : String
+    + getAffinity() : PokemonType
+    + getLife() : Integer
+    + getAttack() : Integer
+}
+
+enum PokemonType <<enum>>{
+    AIR
+    WATER
+    EARTH
+    FIRE
+}
+'On pourrait contenir cette énumération comme des "sous classes" de Pokemon'
+
+enum PokemonName <<enum>>{
+    ALI_AYADI
+    RMOUQUE_ILIAS
+    KRAHENBUHL_ADRIEN
+    SCHNEIDER_CATHIE-ANNE
+    MARTEBS_LOUISE
+    WESSLER-LAUX_ERIC
+    FONNE_JEAN-PIERRE
+    RICHARD_VERONIQUE
+    LHELGUEN_HERVE
+    CORMAC_CHESTER
+    WEMMERT_CEDRIC
+    LUTTRINGER_JEAN-ROMAIN
+    LEQUENTREC_ETIENNE
+    MEYER_CYRIL
+    BREANT_JULIAN
+    ROY_ISABELLE
+    MOSSER_RENE
+    PERRIN_ROMAIN
+    ZIMMERMANN_MATHIEU
+    LAM_FRANCIS
+    TRESTINI_MARC
+    BOUSSETA_IDRISSI_SELMA
+    BRAUD_AGNES
+    LACHICHE_NICOLAS
+    LEBORGNE_AURELIE
+    GANCARSKI_PIERRE
+    BALDI_GUILLAUME
+    MAINGUY_CLAIRE
+    ETTAHRI_BOUCHRA
+    GRAZIANI_CELINE
+    GOSSA_JULIEN
+}
+'On pourrait contenir cette énumération comme un ArrayList static dans Pokemon'
+
+abstract class Player <<abstract>> {
+    + <<create>> Player()
+    + {abstract} choicePokemonBattlefield()
+    + displayDecks() : String
+    + hasLost() : Boolean
+}
+
+class User extends Player {
+    + choicePokemonBattlefield()
+    + displayHand() : String
+}
+
+class CPU extends Player {
+    + choicePokemonBattlefield()
+}
+
+class Battlefield {
+    + <<create>> Battlefield()
+    + addPokemonToBattlefield(pokemon : Pokemon)
+    + displayBattlefield() : String
+    + chooseCurrentPokemon() : Pokemon
+}
+
+class DisplayGame {
+    - _currentTurnPlayer : Integer
+    + displayGame() : String
+    - displayRoundUserAttacker() : String
+    - displayRoundCPUAttacker() : String
+}
+
+Player *-u-> "1\n # _battlefield" Battlefield : "has a"
+Player *-u-> "*\n # _pokemonDraw" Pokemon : "is composed of"
+Player *-d---> "*\n # _pokemonDiscard" Pokemon : "is composed of"
+Player *--> "0..5\n # _pokemonHand" Pokemon : "is composed of"
+Battlefield *--> "0..3\n - _pokemonBattlefieldList" Pokemon : "is composed of"
+DisplayGame o--> "1\n - _user" User : "display"
+DisplayGame o--> "1\n - _cpu" CPU : "display"
+Pokemon *-l-> "1\n - _affinity" PokemonType : "has a type of"
+
+Game .d.> Player : <<uses>>
+Game .d.> DisplayGame : <<uses>>
+Game .d.> CPU : <<uses>>
+Game .d.> User : <<uses>>
+
+''Story3 ..> Character : <<uses>>
+''Story3 ..> Drink : <<uses>>
+''''Story3 ..> Genre : <<uses>>
+''Story3 ..> Female : <<uses>>
+''Story3 ..> Male : <<uses>>
+''Story3 ..> Narrator : <<uses>>
+
+
+@enduml
