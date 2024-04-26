@@ -1,4 +1,4 @@
-public class Pokemon
+public class Game
 {
   public static void main(String args[])
   {
