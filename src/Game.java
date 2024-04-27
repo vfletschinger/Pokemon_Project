@@ -6,6 +6,7 @@ public class Game
 
     // Initialization of some names in _pokemonList of the Pokemon class
     Pokemon.setPokemonList("Ali Ayadi");
+    Pokemon.setPokemonList("Zimmermann Mathieu");
 
     // Create two Pokemon instances: pokemon1, pokemon2
     Pokemon pokemon1 = new Pokemon();

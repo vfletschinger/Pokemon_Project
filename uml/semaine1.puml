@@ -27,6 +27,7 @@ class Pokemon {
     + getAffinity() : PokemonType
     + getLife() : Integer
     + getAttack() : Integer
+    + setPokemonList(name : String)
 }
 
 enum PokemonType <<enum>>{
