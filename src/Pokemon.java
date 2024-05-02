@@ -6,7 +6,7 @@ public class Pokemon {
     private final String _name;
 
     // We'll need to add the "PokemonType" enumeration (it will be a merge request on its own)
-    private final String _affinity;
+    private final PokemonType _affinity;
     private Integer _life;
     private final Integer _attack;
 
@@ -22,7 +22,7 @@ public class Pokemon {
 
         // We'll need to do a "Random" function/class to randomize the name and the affinity
         _name = _pokemonList.get(0);
-        _affinity = "Air"; // we have to change it
+        _affinity = PokemonType.AIR; // we have to change it
         _life = 100;
         _attack = 50;
 
@@ -61,7 +61,7 @@ public class Pokemon {
      * return :
      *  this._affinity : the affinity of a Pokemon instance
      */
-    public String getAffinity(){
+    public PokemonType getAffinity(){
         return this._affinity;
     }
 
