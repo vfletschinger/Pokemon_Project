@@ -43,6 +43,8 @@ abstract class Player <<abstract>> {
     + {abstract} choicePokemonBattlefield()
     + displayDecks() : String
     + hasLost() : Boolean
+    + addPokemonToDiscard(pokemon : Pokemon)
+    + displayHand() : String
 }
 
 class User extends Player {
