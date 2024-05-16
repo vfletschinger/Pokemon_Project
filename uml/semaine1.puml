@@ -71,28 +71,26 @@ class DisplayGame {
 }
 
 class Draw{
-    - _draw : Pokemon[]
     +<<create>> Draw(nameList : String[])
     + deletePokemonOfDraw (pokemon : Pokemon)
 }
 
 class Hand{
-    - _hand : Pokemon[]
     +<<create>> Hand(NameList : String[])
     + addPokemonToHand (pokemon : Pokemon)
     + deletePokemonOfHand (pokemon : Pokemon)
 }
 
-Player *-u-> "1\n # _battlefield" Battlefield : "has a"
-Player *-u-> "1\n # _pokemonDraw" Draw : "has a"
-Player *-d---> "*\n # _pokemonDiscard" Pokemon : "is composed of"
-Player *--> "1\n # _pokemonHand" Hand : "has a"
-Draw *--> "0..21\n # _draw" Pokemon : "has a"
-Hand *--> "0..5\n # _hand" Pokemon : "has a"
-Battlefield *--> "0..3\n - _pokemonBattlefieldList" Pokemon : "is composed of"
-DisplayGame o--> "1\n - _user" User : "display"
-DisplayGame o--> "1\n - _cpu" CPU : "display"
-Pokemon *-l-> "1\n - _affinity" PokemonType : "has a type of"
+Player *-u-> "1\n # _battlefield" Battlefield : > has a
+Player *-u-> "1\n # _pokemonDraw" Draw : > has a
+Player *-d---> "*\n # _discard" Pokemon : > is composed of
+Player *--> "1\n # _hand" Hand : > has a
+Draw *--> "0..21\n # _pokemonDraw" Pokemon : > has a
+Hand *--> "0..5\n # _pokemonHand" Pokemon : > has a
+Battlefield *--> "0..3\n - _pokemonBattlefieldList" Pokemon : > is composed of
+DisplayGame o--> "1\n - _user" User : > display
+DisplayGame o--> "1\n - _cpu" CPU : > display
+Pokemon *-l-> "1\n - _affinity" PokemonType : > has a type of
 
 Game .d.> Player : <<uses>>
 Game .d.> DisplayGame : <<uses>>
