@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player {
-    private Battlefield _battlefield;
-    private Draw _draw;
-    private Hand _hand;
-    private List<Pokemon> _pokemonDiscard = new ArrayList<>();
+    protected Battlefield _battlefield;
+    protected Draw _draw;
+    protected Hand _hand;
+    protected List<Pokemon> _pokemonDiscard = new ArrayList<>();
 
     public Player(Draw draw, Hand hand){
         _draw = draw;
@@ -29,6 +29,8 @@ public abstract class Player {
     public void addPokemonToDiscard(Pokemon pokemon){
         _pokemonDiscard.add(pokemon);
     }
+
+    // displayHand de User
     public String displayHand(){
         String display = "";
 
