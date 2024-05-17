@@ -16,7 +16,7 @@ class Pokemon {
     - _name : String
     - _life : Integer
     - _attack : Integer
-    + <<create>> Pokemon()
+    + <<create>> Pokemon(name : String)
     - chooseNamePokemon() : String
     - chooseAffinityPokemon() : String
     - chooseLifePokemon() : Integer
