@@ -56,25 +56,19 @@ public class Game
     Hand SecondHand = new Hand(secondNameListForHand);
 
 
-    // Create two Pokemon instances: pokemon1, pokemon2
-    Pokemon pokemon1 = new Pokemon("JOHNNY");
-    Pokemon pokemon2 = new Pokemon("JEAN");
+    // Create 2 players
+    Player joueur = new User(FirstDraw,FirstHand);
+    Player bot = new CPU(SecondDraw, SecondHand);
+
 
     // Display the attributes of pokemon1
-    System.out.println(pokemon1.getName());
-    System.out.println(pokemon1.getAffinity());
-    System.out.println(pokemon1.getLife());
-    System.out.println(pokemon1.getAttack());
+    System.out.println(joueur.displayHand());
+    System.out.println(bot.displayHand());
 
-    // Display an fight between pokemon1 and pokemon2
+    //A Pokemon attacks another one
+    System.out.println(bot.getHand().getPokemonHand().get(0).getLife());
+    joueur.getHand().getPokemonHand().get(0).attackPokemon(bot.getHand().getPokemonHand().get(0));
+    System.out.println(bot.getHand().getPokemonHand().get(0).getLife());
 
-    System.out.println("\n" + pokemon1.getName() + " attacks " + pokemon2.getName());
-    pokemon1.attackPokemon(pokemon2);
-    System.out.println("Life of " + pokemon2.getName() + " = " + pokemon2.getLife());
-
-    System.out.println("\n" + pokemon2.getName() + " attacks " + pokemon1.getName());
-    pokemon2.attackPokemon(pokemon1);
-    System.out.println("Life of " + pokemon1.getName() + " = " + pokemon1.getLife());
-
-  }
+}
 }

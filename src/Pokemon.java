@@ -5,7 +5,6 @@ import java.util.Random;
 public class Pokemon {
     private final String _name;
 
-    // We'll need to add the "PokemonType" enumeration (it will be a merge request on its own)
     private final PokemonType _affinity;
     private Integer _life;
     private final Integer _attack;

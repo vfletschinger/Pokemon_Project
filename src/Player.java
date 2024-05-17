@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Player {
+public class Player {
     protected Battlefield _battlefield;
     protected Draw _draw;
     protected Hand _hand;
@@ -16,7 +16,7 @@ public abstract class Player {
         _battlefield.addPokemonToBattlefield(_hand.getPokemonHand().remove(index));
 		_hand.addPokemonToHand(_draw.getPokemonDraw().remove(index));
     }
-    public  String displayDecks(){
+    public String displayDecks(){
         String display = "";
 
         display += "pioche: " + _draw.getPokemonDraw().size() + "pokemons\n";
@@ -46,6 +46,13 @@ public abstract class Player {
         display += "\n";
 
         return display;
+    }
+
+    public Hand getHand (){
+        return this._hand;
+    }
+    public Draw getDraw (){
+        return this._draw;
     }
 
 }
