@@ -12,7 +12,10 @@ public abstract class Player {
         _hand = hand;
         _battlefield = new Battlefield();
     }
-    public abstract void choicePokemonBattlefield();
+    public void choicePokemonBattlefield(int index){
+        _battlefield.addPokemonToBattlefield(_hand.getPokemonHand().remove(index));
+		_hand.addPokemonToHand(_draw.getPokemonDraw().remove(index));
+    }
     public  String displayDecks(){
         String display = "";
 

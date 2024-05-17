@@ -24,4 +24,5 @@ public class Hand {
     public List<Pokemon> getPokemonHand() {
         return _pokemonHand;
     }
+
 }
