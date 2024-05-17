@@ -61,6 +61,7 @@ class Battlefield {
     + addPokemonToBattlefield(pokemon : Pokemon)
     + displayBattlefield() : String
     + chooseCurrentPokemon(pokemonName : String) : Pokemon
+    + getPokemonBattlefieldList() : Pokemon[0..3]
 }
 
 class DisplayGame {

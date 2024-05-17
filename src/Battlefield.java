@@ -104,4 +104,8 @@ public class Battlefield {
         return  null;
 
     }
+
+    public List<Pokemon> getPokemonBattlefieldList() {
+        return _pokemonBattlefieldList;
+    }
 }
