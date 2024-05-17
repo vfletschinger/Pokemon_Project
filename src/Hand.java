@@ -3,12 +3,12 @@ import java.util.List;
 
 public class Hand {
 
-    private List<Pokemon> _pokemonHand = new ArrayList<>();
+    private final List<Pokemon> _pokemonHand = new ArrayList<>();
 
-    // We have to modify this function (when Pokemon is updated)
-    public Hand(ArrayList<String> nameList){
+    // Take an ArrayList of 5 names of Pokemons
+    public Hand(List<String> nameList){
         for(int i = 0; i < 5; i++){
-            _pokemonHand.add(new Pokemon());
+            _pokemonHand.add(new Pokemon(nameList.get(i)));
         }
     }
 
@@ -17,7 +17,7 @@ public class Hand {
          _pokemonHand.add(pokemon);
         }
     }
-    public void deletePokemonOfDraw(Pokemon pokemon){
+    public void deletePokemonOfHand(Pokemon pokemon){
         _pokemonHand.remove(pokemon);
     }
 
