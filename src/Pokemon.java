@@ -3,7 +3,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Pokemon {
-    private static final List<String> _pokemonList = new ArrayList<>();
     private final String _name;
 
     // We'll need to add the "PokemonType" enumeration (it will be a merge request on its own)
@@ -109,8 +108,4 @@ public class Pokemon {
         return this._attack;
     }
 
-    // We need to change the uml -> visibility need to ne private for _pokemonList
-    public static void setPokemonList(String name){
-        Pokemon._pokemonList.add(name);
-    }
 }

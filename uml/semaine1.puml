@@ -8,7 +8,7 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 
 
-class Game {
+class Game  {
 	+ {static} main( args:String[] )
 }
 
@@ -17,10 +17,6 @@ class Pokemon {
     - _life : Integer
     - _attack : Integer
     + <<create>> Pokemon(name : String)
-    - chooseNamePokemon() : String
-    - chooseAffinityPokemon() : String
-    - chooseLifePokemon() : Integer
-    - chooseAttackPokemon() : Integer
     + attackPokemon(pokemon : Pokemon)
     + getName() : String
     + getAffinity() : PokemonType
