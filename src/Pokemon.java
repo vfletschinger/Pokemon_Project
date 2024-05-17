@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Pokemon {
     private static final List<String> _pokemonList = new ArrayList<>();
@@ -18,13 +19,32 @@ public class Pokemon {
      * return :
      *  NONE
      */
-    public Pokemon(){
+    public Pokemon(String name){
 
-        // We'll need to do a "Random" function/class to randomize the name and the affinity
-        _name = _pokemonList.get(0);
-        _affinity = PokemonType.AIR; // we have to change it
-        _life = 100;
-        _attack = 50;
+        _name = name;
+
+        //Creation of a list containing a number of values equals to the number of type in the enumeration PokemonType
+        ArrayList<PokemonType> listType = new ArrayList<PokemonType>();
+        for (PokemonType type : PokemonType.values() ){
+            listType.add(type);
+        }
+        //Using the function Random to affect a random type from the list
+        Random random = new Random();
+        _affinity = listType.get(random.nextInt(listType.size()));
+
+        //Using the function Random and a list of possible life value to affect the life of the Pokemon
+        ArrayList<Integer> lifeValues = new ArrayList<Integer>();
+        for (Integer i = 100; i<= 200; i+=10){
+            lifeValues.add(i);
+        }
+        _life = lifeValues.get(random.nextInt(lifeValues.size()));
+
+        //Using the function Random and a list of possible attack value to affect the attack of the Pokemon
+        ArrayList<Integer> attackValues = new ArrayList<Integer>();
+        for (Integer j = 10 ; j <=40 ; j+=10){
+            attackValues.add(j);
+        }
+        _attack = attackValues.get(random.nextInt(attackValues.size()));
 
     }
 
