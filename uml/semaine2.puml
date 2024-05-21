@@ -84,6 +84,13 @@ class Hand{
     + getPokemonHand() : Pokemon[0..5]
 }
 
+class Power{
+    - _id : Integer
+    - _nbUsesLeft : Integer
+    + <<create>> Power(id)
+    + use(otherPokemon : Pokemon)
+}
+
 Player *-u-> "1\n # _battlefield" Battlefield : > has a
 Player *-u-> "1\n # _pokemonDraw" Draw : > has a
 Player *-d---> "*\n # _discard" Pokemon : > is composed of
