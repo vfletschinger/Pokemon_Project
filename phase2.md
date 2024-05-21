@@ -30,13 +30,13 @@ Les pouvoirs peuvent être à utilisation unique ou être réutilisables à chaq
 - **Soin permanent**, à utilisation unique : le Pokémon choisit un Pokémon de son camp (éventuellement lui-même). Celui-ci regagne au début de chaque tour 10 points de vie (mais ne peut pas dépasser son nombre de points de vie initial).
 - **Protection**, à utilisation unique : le Pokémon choisit un Pokémon de son camp (éventuellement lui-même). Durant le prochain tour de son adversaire le Pokémon choisi ne subit aucune attaque (mais reste sensible aux pouvoirs des Pokémons).
 - **Immunité**, à utilisation unique : le Pokémon choisit un Pokémon de son camp (éventuellement lui-même) et du camp adverse. Le Pokémon choisi dans le camp adverse ne peut plus attaquer le Pokémon choisi dans le camp allié durant toute la partie (mais ce dernier reste sensible aux pouvoirs de tous les Pokémons).
-- **Déjà-vu?**, à utilisation unique : le Pokémon choisit un Pokémon de son camp (éventuellement lui-même). Le Pokémon choisi peut jouer une seconde fois lors du tour en cours.
+- **Déjà-vu**, à utilisation unique : le Pokémon choisit un Pokémon de son camp (éventuellement lui-même). Le Pokémon choisi peut jouer une seconde fois lors du tour en cours.
 - **Blocage**, à utilisation unique : le Pokémon choisit un Pokémon du camp adverse. Le Pokémon ne peut pas jouer lors du tour suivant de l'adversaire.
 - **Nécromancie**, à utilisation unique : le Pokémon choisit un Pokémon mort dans sa défausse. Le Pokémon meurt et est remplacé par le Pokémon choisi dans la défausse.
--**Extension du territoire**, à utilisation unique :  le terrain du joueur gagne un quatrième emplacement sur lequel il peut placer immédiatement un Pokémon de sa main. Lorsque le Pokémon qui a utilisé ce pouvoir meurt, son emplacement est perdu et le terrain possède de nouveau trois emplacements.
--**Manipulation**, utilisable à chaque tour : le joueur place un certain nombre de cartes de sa main dans sa pioche, mélange la pioche et pioche dans sa main le même nombre de cartes.
--**Confusion**, utilisable à chaque tour : le joueur adverse doit défausser toutes les cartes de sa main dans sa pioche, mélanger sa pioche et piocher 5 Pokémons.
--**Triche**, à utilisation unique : le joueur place un certain nombre de sa main dans sa pioche et choisit dans sa pioche le même nombre de cartes. Sa pioche est ensuite mélangée.
+- **Extension du territoire**, à utilisation unique :  le terrain du joueur gagne un quatrième emplacement sur lequel il peut placer immédiatement un Pokémon de sa main. Lorsque le Pokémon qui a utilisé ce pouvoir meurt, son emplacement est perdu et le terrain possède de nouveau trois emplacements.
+- **Manipulation**, utilisable à chaque tour : le joueur place un certain nombre de cartes de sa main dans sa pioche, mélange la pioche et pioche dans sa main le même nombre de cartes.
+- **Confusion**, utilisable à chaque tour : le joueur adverse doit défausser toutes les cartes de sa main dans sa pioche, mélanger sa pioche et piocher 5 Pokémons.
+- **Triche**, à utilisation unique : le joueur place un certain nombre de sa main dans sa pioche et choisit dans sa pioche le même nombre de cartes. Sa pioche est ensuite mélangée.
 
 ## Affichage des pouvoirs
 Le nom des pouvoirs doit être affiché pour chaque Pokémon des terrains des deux joueurs ainsi que pour les Pokémons de la main du joueur humain.
