@@ -44,8 +44,8 @@ Les effets actifs des pouvoirs doivent être également visible.
 Le joueur humain doit pouvoir consulter l'effet produit par un pouvoir.
 
 ## Test des pouvoirs
+
 Pour chaque pouvoir implémenté, des tests doivent montrer le fonctionnement de celui-ci.
-S'il est nécessaire d'ajouter des méthodes aux classes déjà existantes ne servant que dans les tests, veillez à réduire la visibilité de ces méthodes à package et à ajouter le mot test dans leur nom pour les distinguer des autres méthodes.
 
 ## Planning indicatif
 
