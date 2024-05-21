@@ -33,7 +33,7 @@ enum PokemonType <<enum>>{
 'On pourrait contenir cette énumération comme des "sous classes" de Pokemon'
 
 
-class Player{
+abstract class Player <<abstract>>{
     + <<create>> Player()
     + choicePokemonBattlefield()
     + displayDecks() : String
