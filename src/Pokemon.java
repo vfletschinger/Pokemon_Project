@@ -7,8 +7,11 @@ public class Pokemon {
 
     private final PokemonType _affinity;
     private Integer _life;
-    private final Integer _attack;
+    private final Integer _initialLife;
+    private Integer _attack;
+    private final Integer _initialAttack;
 
+    private Boolean _isDead;
     /* Pokemon : constructor : it creates an instance of the Pokemon class
      * param :
      *  NONE
@@ -35,15 +38,20 @@ public class Pokemon {
         for (Integer i = 100; i<= 200; i+=10){
             lifeValues.add(i);
         }
-        _life = lifeValues.get(random.nextInt(lifeValues.size()));
+        int lf = lifeValues.get(random.nextInt(lifeValues.size()));
+        _life = lf;
 
         //Using the function Random and a list of possible attack value to affect the attack of the Pokemon
         ArrayList<Integer> attackValues = new ArrayList<Integer>();
         for (Integer j = 10 ; j <=40 ; j+=10){
             attackValues.add(j);
         }
-        _attack = attackValues.get(random.nextInt(attackValues.size()));
+        int atk = attackValues.get(random.nextInt(attackValues.size()));
+        _attack = atk;
 
+        _initialAttack = atk;
+        _initialLife = lf;
+        _isDead = false;
     }
 
     /* attackPokemon : function : void : when a Pokemon attacks another one, it will do damage so
@@ -107,4 +115,14 @@ public class Pokemon {
         return this._attack;
     }
 
+    public void addAttack(Integer value){
+        _attack += value;
+    }
+
+    public void resetLife(){
+        _life = _initialLife;
+    }
+    public void killPokemon(){
+        _isDead = true;
+    }
 }
