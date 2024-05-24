@@ -16,6 +16,8 @@ public class Pokemon {
 
     private Boolean _hasExtends;
 
+    private Power _power;
+
 
     /* Pokemon : constructor : it creates an instance of the Pokemon class
      * param :
@@ -59,6 +61,12 @@ public class Pokemon {
         _isDead = false;
         _attacksLeft = 1;
         _hasExtends = false;
+        _power = null;
+    }
+
+    public Pokemon(String name, Power power){
+        this(name);
+        _power = power;
     }
 
     /* attackPokemon : function : void : when a Pokemon attacks another one, it will do damage so

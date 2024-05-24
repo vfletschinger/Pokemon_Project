@@ -160,7 +160,7 @@ Battlefield *--> "0..3\n - _pokemonBattlefieldList" Pokemon : > is composed of
 DisplayGame o--> "1\n - _user" User : > display
 DisplayGame o--> "1\n - _cpu" CPU : > display
 Pokemon *-l-> "1\n - _affinity" PokemonType : > has a type of
-
+Pokemon o--> "0..1\n - _power" Power : > has a
 Game .d.> Player : <<uses>>
 Game .d.> DisplayGame : <<uses>>
 Game .d.> CPU : <<uses>>
