@@ -19,6 +19,8 @@ class Pokemon {
     - _attack : Integer
     - _initialAttack : Integer
     - _isDead : Boolean
+    - _attacksLeft : Integer
+    - _hasExtends : Boolean
     + <<create>> Pokemon(name : String)
     + attackPokemon(pokemon : Pokemon)
     + getName() : String
@@ -28,6 +30,10 @@ class Pokemon {
     + addAttack(value : Integer)
     + resetLife()
     + killPokemon()
+    + becomeEtherAffinity()
+    + becomeLeadAffinity()
+    + increaseNumberOfAttacksLeft()
+    + extendsTerritory()
 }
 
 enum PokemonType <<enum>>{
@@ -35,6 +41,8 @@ enum PokemonType <<enum>>{
     WATER
     EARTH
     FIRE
+    ETHER
+    LEAD
 }
 'On pourrait contenir cette énumération comme des "sous classes" de Pokemon'
 

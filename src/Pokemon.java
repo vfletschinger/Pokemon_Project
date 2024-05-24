@@ -5,13 +5,18 @@ import java.util.Random;
 public class Pokemon {
     private final String _name;
 
-    private final PokemonType _affinity;
+    private PokemonType _affinity;
     private Integer _life;
     private final Integer _initialLife;
     private Integer _attack;
     private final Integer _initialAttack;
 
     private Boolean _isDead;
+    private Integer _attacksLeft;
+
+    private Boolean _hasExtends;
+
+
     /* Pokemon : constructor : it creates an instance of the Pokemon class
      * param :
      *  NONE
@@ -52,6 +57,8 @@ public class Pokemon {
         _initialAttack = atk;
         _initialLife = lf;
         _isDead = false;
+        _attacksLeft = 1;
+        _hasExtends = false;
     }
 
     /* attackPokemon : function : void : when a Pokemon attacks another one, it will do damage so
@@ -124,5 +131,21 @@ public class Pokemon {
     }
     public void killPokemon(){
         _isDead = true;
+    }
+
+    public void becomeEtherAffinity(){
+        _affinity = PokemonType.ETHER;
+    }
+
+    public void becomeLeadAffinity(){
+        _affinity = PokemonType.LEAD;
+    }
+
+    public void increaseNumberOfAttacksLeft(){
+        _attacksLeft ++;
+    }
+
+    public void extendsTerritory(){
+        _hasExtends = true;
     }
 }

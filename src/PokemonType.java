@@ -2,5 +2,9 @@ public enum PokemonType {
     AIR,
     WATER,
     EARTH,
-    FIRE
+    FIRE,
+
+    ETHER,
+
+    LEAD
 }
