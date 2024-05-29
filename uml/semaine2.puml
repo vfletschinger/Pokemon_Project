@@ -66,7 +66,8 @@ class Battlefield {
 
 class DisplayGame {
     - _currentTurnPlayer : Integer
-    + displayGame() : String
+    + <<create>> DisplayGame(user : User) :
+    + <<create>> DisplayGame(cpu : CPU) :
     - displayRoundUserAttacker() : String
     - displayRoundCPUAttacker() : String
 }

@@ -59,6 +59,28 @@ public class Pokemon {
         pokemon._life -= this._attack;
     }
 
+    /* attackPokemon : function : void : when a Pokemon attacks another one, it will do damage so
+     * in consequence the targeted pokemon's life will decrease
+     * param :
+     *  pokemon : Pokemon : an instance of a Pokemon class, it's the targeted pokemon
+     *  bonus : Integer: a bonus of attack than can be negative or positive
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
+    public void attackPokemon(Pokemon pokemon, Integer bonus){
+        pokemon._life -= this._attack + bonus;
+    }
+
+    public boolean isKO(){
+        if(this.getLife() <= 0){
+            return true;
+        }
+
+        return false;
+    }
+
     /* getName : function : Integer : it gets you the name of a Pokemon instance
      * param :
      *  NONE
