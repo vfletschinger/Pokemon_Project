@@ -6,14 +6,12 @@ import power.*;
 
 public class Pokemon {
     private final String _name;
-
     private PokemonType _affinity;
     private Integer _life;
     private final Integer _initialLife;
     private Integer _attack;
-    private final Integer _initialAttack;
-
-    private Boolean _isDead;
+    private Integer _initialAttack;
+    private boolean _penalty = false;
     private Integer _attacksLeft;
 
     private Boolean _hasExtends;
@@ -60,7 +58,6 @@ public class Pokemon {
 
         _initialAttack = atk;
         _initialLife = lf;
-        _isDead = false;
         _attacksLeft = 1;
         _hasExtends = false;
         _power = null;
@@ -99,11 +96,7 @@ public class Pokemon {
     }
 
     public boolean isKO(){
-        if(this.getLife() <= 0){
-            return true;
-        }
-
-        return false;
+        return this.getLife() <= 0;
     }
 
     /* getName : function : Integer : it gets you the name of a Pokemon instance
@@ -153,16 +146,16 @@ public class Pokemon {
     public Integer getAttack(){
         return this._attack;
     }
-
+    public Power getPower(){ return this._power; }
+    public Boolean getPenalty() { return _penalty;}
+    public Integer getInitialAttack() { return _initialAttack; }
     public void addAttack(Integer value){
         _attack += value;
     }
-
+    public void setLife(Integer value) { _life = value; }
+    public void setPenalty(Boolean value) { _penalty = value;}
     public void resetLife(){
         _life = _initialLife;
-    }
-    public void killPokemon(){
-        _isDead = true;
     }
 
     public void becomeEtherAffinity(){
