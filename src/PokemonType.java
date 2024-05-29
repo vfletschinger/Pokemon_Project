@@ -2,8 +2,9 @@ public enum PokemonType {
     AIR,  // 1
     EARTH, // 2
     WATER, // 3
-    FIRE; // 4
-
+    FIRE, // 4
+    ETHER,
+    LEAD;
     public boolean isStrongAgainst(PokemonType otherType){
 
         switch(this){
