@@ -2,6 +2,7 @@ package power;
 import pokemon.Pokemon;
 public class WarriorFervor implements Power{
 
+    private String _name = "WarriorFervor";
     private Boolean _wasAlreadyUsed;
 
     public WarriorFervor(){
@@ -13,5 +14,14 @@ public class WarriorFervor implements Power{
             otherPokemon.addAttack(10);
             _wasAlreadyUsed = true;
         }
+    }
+
+    @Override
+    public String getName(){
+        return _name;
+    }
+    @Override
+    public Boolean getWasAlreadyUsed(){
+        return _wasAlreadyUsed;
     }
 }

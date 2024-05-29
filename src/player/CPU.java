@@ -34,7 +34,20 @@ public class CPU extends Player {
             }
 
             int damage = cpuPokemon.getAttack() + bonus;
-            script += "\n-" + damage + " à " + pokemonTarget.getName();
+
+            if(cpuPokemon.getPower().getName().equals("Warrior Fervor") && cpuPokemon.getPower().getWasAlreadyUsed()){
+                script += "\nThanks to Warrior Fervor, your " + cpuPokemon.getName() + " gets +10 of attack !";
+                Integer bonusAttack = 10;
+                script += "\n-" + damage + "[+" + bonusAttack + "]" + " à " + pokemonTarget.getName();
+            }
+            else if(cpuPokemon.getPenalty()){
+                script += "\nDue to Warrior Fervor, your " + cpuPokemon.getName() + " gets -10 of attack :(";
+                Integer penaltyAttack = 10;
+                script += "\n-" + damage + "[+" + penaltyAttack + "]" + " à " + pokemonTarget.getName();
+            }
+            else{
+                script += "\n-" + damage + " à " + pokemonTarget.getName();
+            }
 
             cpuPokemon.attackPokemon(pokemonTarget,bonus);
 
@@ -46,10 +59,12 @@ public class CPU extends Player {
                 System.out.println("L'ordinateur a tué un de vos pokémons :");
                 script = "\n" + cpuPokemon.getName() + " a tué " + pokemonTarget.getName() + " de l'utilisateur";
                 System.out.println(script);
-
                 System.out.println();
-                opponent.addPokemonToDiscard(pokemonTarget);
-                opponentPokemons.remove(pokemonTarget);
+
+                    opponent.addPokemonToDiscard(pokemonTarget);
+                    opponentPokemons.remove(pokemonTarget);
+                    opponent.addPokemonToDiscard(pokemonTarget);
+                    opponentPokemons.remove(pokemonTarget);
             }
         }
     }

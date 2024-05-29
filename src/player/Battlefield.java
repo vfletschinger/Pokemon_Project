@@ -2,7 +2,6 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 import pokemon.*;
-import player.*;
 public class Battlefield {
     private final List<Pokemon> pokemonBattlefield = new ArrayList<>();
     private final Integer maxSlots = 3;
@@ -36,75 +35,99 @@ public class Battlefield {
 
     public String displayBattlefield() {
         String display = "";
+        Integer maxLines = 113;
+        Integer maxSlots = 3;
+        boolean isPowerActivated = false;
 
         // une ligne d'affichage équivaut à 92 char max
+        if(pokemonBattlefield.size() > 3){
+            isPowerActivated = true;
+            maxLines += 37;
+            maxSlots = 4;
+        }
 
-        display += displaySimpleLineBattlefield('*', '-', 92); // 94 char
+        display += displaySimpleLineBattlefield('*', '-', maxLines); // 115 (+37) char
         display += "\n";
-        display += displaySimpleLineBattlefield('|', ' ', 92); // 94 char
+        display += displaySimpleLineBattlefield('|', ' ', maxLines); // 115 (+37) char
         display += "\n";
-        display += displaySimpleLineBattlefield('|', ' ', 92); // 94 char
+        display += displaySimpleLineBattlefield('|', ' ', maxLines); // 115 (+37) char
         display += "\n";
 
 
-        for (int i = 1; i < 7; i++) {
+        for (int i = 1; i < 8; i++) {
             display += "|  "; // 3 char
             for (Pokemon pokemonDisplay : this.pokemonBattlefield) {
                 if(i == 1) {
-                    display += displaySimpleLineBattlefield('#', '-', 26); // 28 char (*3)
+                    display += displaySimpleLineBattlefield('#', '-', 35); // 28 char (*3)
                     display += "  "; // 2 char (*3)
                 }
                 else if(i == 2) {
-                    display += "|    Attaque: " + pokemonDisplay.getAttack().toString(); // 16 char (*3)
-                    display += "           |  "; // 14 char (*3)
+                    if(pokemonDisplay.getPower().getName().equals("Warrior Fervor") && pokemonDisplay.getPower().getWasAlreadyUsed()){
+                        display += "|    Attaque: " + pokemonDisplay.getInitialAttack(); // 16 char (*3)
+                        display += "[+10]      |  "; // 14 char (*3)
+                    }
+                    else if(pokemonDisplay.getPenalty()){
+                        display += "|    Attaque: " + pokemonDisplay.getInitialAttack(); // 16 char (*3)
+                        display += "[-10]      |  "; // 14 char (*3)
+                    }
+                    else{
+                        display += "|    Attaque: " + pokemonDisplay.getInitialAttack(); // 16 char (*3)
+                        display += "           |  "; // 14 char (*3)
+                    }
                 }
                 else if(i == 3) {
-                    display += "|    Vie: " + pokemonDisplay.getLife().toString(); // 11 + 1/2/3 char (*3) (8)
+                    display += "|    Vie: " + pokemonDisplay.getLife().toString(); // 10 + 1/2/3 char (*3) (8)
                     switch(pokemonDisplay.getLife().toString().length()){
                         case 1:
-                            display += "                ";
+                            display += "                       ";
                             break;
                         case 2:
-                            display += "               ";
+                            display += "                      ";
                             break;
                         case 3:
-                            display += "              ";
+                            display += "                     ";
                             break;
                     }
                     display += "|  "; // 14 char (*3)
                 }
                 else if(i == 4) {
                     display += "|    Affinite: " + pokemonDisplay.getAffinity().toString(); // 16 char (*3) (12)
-                    for (int k = 0; k < 12 - pokemonDisplay.getAffinity().toString().length(); k++) {
+                    for (int k = 0; k < 19 - pokemonDisplay.getAffinity().toString().length(); k++) {
                         display += " ";
                     }
                     display += "|  "; // 14 char (*3)
                 }
                 else if(i == 5) {
-                    display += "|  " + pokemonDisplay.getName(); // 2 + x char (*3)  (24)
-                    for (int k = 0; k < 24 - pokemonDisplay.getName().length(); k++) {
+                    // Show the power
+                    display += "|  Power: " + pokemonDisplay.getPower().getName(); // 10 + x char (*3)
+                    for (int k = 0; k < 26 - pokemonDisplay.getName().length(); k++) {
                         display += " ";
                     }
                     display += "|  "; // 14 char (*3)
                 }
                 else if(i == 6) {
-                    display += displaySimpleLineBattlefield('#', '-', 26); // 28 char (*3)
+                    display += "|  " + pokemonDisplay.getName(); // 2 + x char (*3)  (24)
+                    for (int k = 0; k < 31 - pokemonDisplay.getName().length(); k++) {
+                        display += " ";
+                    }
+                    display += "|  "; // 14 char (*3)
+                }
+                else if(i == 7) {
+                    display += displaySimpleLineBattlefield('#', '-', 33); // 35 char (*3)
                     display += "  "; // 2 char (*3)
                 }
             }
             for(int j = 0; j < maxSlots - pokemonBattlefield.size() ; j++){
-                // if there's less than 2 pokemon on battlefield
-                if(pokemonBattlefield.size() < 3){
-                    display += "                              ";
-                }
+                // if there's less than 2 or 3 pokemon on battlefield
+                display += "                                     ";
             }
 
             display += "|\n";
         }
 
-        display += displaySimpleLineBattlefield('|', ' ', 92);
+        display += displaySimpleLineBattlefield('|', ' ', maxLines);
         display += "\n";
-        display += displaySimpleLineBattlefield('*','-',92); // 94 char
+        display += displaySimpleLineBattlefield('*','-',maxLines); // 94 char
         display += "\n";
 
         return display;

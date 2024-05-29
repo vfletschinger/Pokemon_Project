@@ -66,6 +66,7 @@ public class User extends Player {
     }
     private void action(Player opponent,Pokemon pokemonTarget, Pokemon pokemonAttacker){
             Integer bonus = 0;
+            int damage = 0;
 
             String script = "Détails de l'attaque :\n";
             script += "Vous attaquez avec " + pokemonAttacker.getName();
@@ -80,8 +81,21 @@ public class User extends Player {
                 script += "\nCe n'est pas très efficace !";
             }
 
-            int damage = pokemonAttacker.getAttack() + bonus;
-            script += "\n-" + damage + " à " + pokemonTarget.getName();
+            damage = pokemonAttacker.getAttack() + bonus;
+
+            if(pokemonAttacker.getPower().getName().equals("Warrior Fervor") && pokemonAttacker.getPower().getWasAlreadyUsed()){
+                script += "\nThanks to Warrior Fervor, your " + pokemonAttacker.getName() + " gets +10 of attack !";
+                Integer bonusAttack = 10;
+                script += "\n-" + damage + "[+" + bonusAttack + "]" + " à " + pokemonTarget.getName();
+            }
+            else if(pokemonAttacker.getPenalty()){
+                script += "\nDue to Warrior Fervor, your " + pokemonAttacker.getName() + " gets -10 of attack :(";
+                Integer penaltyAttack = 10;
+                script += "\n-" + damage + "[+" + penaltyAttack + "]" + " à " + pokemonTarget.getName();
+            }
+            else{
+                script += "\n-" + damage + " à " + pokemonTarget.getName();
+            }
 
             pokemonAttacker.attackPokemon(pokemonTarget,bonus);
 
@@ -92,11 +106,17 @@ public class User extends Player {
                 System.out.println("Vous avez tué un pokemon de l'ordinateur");
                 script = pokemonAttacker.getName() + " a tué " + pokemonTarget.getName() + " du CPU";
                 System.out.println(script);
-                opponent.addPokemonToDiscard(pokemonTarget);
-                opponent.getBattlefield().getPokemonBattlefieldList().remove(pokemonTarget);
-                opponent.getBattlefield().addPokemonToBattlefield(opponent.getHand().getPokemonHand().remove(0));
-                if(opponent.getDraw().getPokemonDraw().size() != 0){
-                    opponent.getHand().addPokemonToHand(opponent.getDraw().getPokemonDraw().get(0));
+
+                if(pokemonTarget.getPower().getName().equals("Territory Extension") && pokemonTarget.getPower().getWasAlreadyUsed()){
+                    opponent.addPokemonToDiscard(pokemonTarget);
+                    opponent.getBattlefield().getPokemonBattlefieldList().remove(pokemonTarget);
+                }
+                else{
+                    opponent.addPokemonToDiscard(pokemonTarget);
+                    opponent.getBattlefield().getPokemonBattlefieldList().remove(pokemonTarget);
+                    opponent.getBattlefield().addPokemonToBattlefield(opponent.getHand().getPokemonHand().remove(0));
+                    if(!opponent.getDraw().getPokemonDraw().isEmpty())
+                        opponent.getHand().addPokemonToHand(opponent.getDraw().getPokemonDraw().get(0));
                 }
             }
     }

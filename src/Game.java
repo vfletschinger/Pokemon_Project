@@ -136,15 +136,26 @@ public class Game
        System.out.println(joueur.displayHand());
     }
 
+    // POWERS
+    Integer maxSlots = 3;
+
     // Display the game - Start of the game
     while(!joueur.hasLost() || bot.hasLost()){
       turn += 1;
       if(whoStart == 0){
+
+        // if there's territory Extension of the user
+        for(Pokemon pokemonUser : joueur.getBattlefield().getPokemonBattlefieldList()){
+          if(pokemonUser.getPower().getName().equals("Territory Extension") && pokemonUser.getPower().getWasAlreadyUsed()){
+            maxSlots = 4;
+          }
+        }
+
         System.out.println("L'ordinateur vous attaque \n");
         bot.turn(joueur);
         System.out.println(displayEachTurn.displayTurn(turn));
 
-        while(joueur.getBattlefield().getPokemonBattlefieldList().size() < 3){
+        while(joueur.getBattlefield().getPokemonBattlefieldList().size() < maxSlots){
           Scanner input = new Scanner(System.in);
 
           String script= "";
@@ -177,9 +188,17 @@ public class Game
         //
       }
       else{
+
+        // if there's territory extension of the user
+        for(Pokemon pokemonUser : joueur.getBattlefield().getPokemonBattlefieldList()){
+          if(pokemonUser.getPower().getName().equals("Territory Extension") && pokemonUser.getPower().getWasAlreadyUsed()){
+            maxSlots = 4;
+          }
+        }
+
         System.out.println(displayEachTurn.displayTurn(turn));
 
-        while(joueur.getBattlefield().getPokemonBattlefieldList().size() < 3){
+        while(joueur.getBattlefield().getPokemonBattlefieldList().size() < maxSlots){
           Scanner input = new Scanner(System.in);
 
           String script= "";
