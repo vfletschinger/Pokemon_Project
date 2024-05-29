@@ -1,4 +1,4 @@
-Création de l'interface Power qui a une méthode use prenant en paramètres le pokémon qui utilise le pouvoir et le pokemon sur lequel est utilisé le pouvoir. 
+Création de l'interface power qui a une méthode use prenant en paramètres le pokémon qui utilise le pouvoir et le pokemon sur lequel est utilisé le pouvoir. 
 
 Création de 8 classes filles qui implémentent l'interface et qui représentent les 8 pouvoirs qui n'ont chacun qu'une seule utilisation par partie. 
 

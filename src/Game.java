@@ -3,7 +3,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
+import player.*;
+import power.*;
+import pokemon.*;
 public class Game
 {
   public static void main(String args[])

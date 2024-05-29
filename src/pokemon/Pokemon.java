@@ -1,6 +1,8 @@
+package pokemon;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+
+import power.*;
 
 public class Pokemon {
     private final String _name;

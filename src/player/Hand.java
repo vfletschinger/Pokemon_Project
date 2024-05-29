@@ -1,6 +1,8 @@
+package player;
 import java.util.ArrayList;
 import java.util.List;
-
+import pokemon.*;
+import player.*;
 public class Hand {
 
     private final List<Pokemon> _pokemonHand = new ArrayList<>();

@@ -1,7 +1,9 @@
+package player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+import pokemon.*;
+import player.*;
 public class CPU extends Player {
 
     public CPU(Draw draw, Hand hand){

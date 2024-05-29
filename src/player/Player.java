@@ -1,6 +1,8 @@
+package player;
 import java.util.ArrayList;
 import java.util.List;
-
+import pokemon.*;
+import player.*;
 public abstract class Player {
     private Battlefield _battlefield;
     private Draw _draw;

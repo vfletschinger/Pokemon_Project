@@ -1,3 +1,5 @@
+package power;
+import pokemon.Pokemon;
 public class TotalHeal implements Power{
     private Boolean _wasAlreadyUsed;
 

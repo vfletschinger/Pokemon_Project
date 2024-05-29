@@ -1,3 +1,5 @@
+package power;
+import pokemon.Pokemon;
 public class LeadAffinity implements Power{
     private Boolean _wasAlreadyUsed;
 

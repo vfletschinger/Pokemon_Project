@@ -1,6 +1,8 @@
+package player;
 import java.util.ArrayList;
 import java.util.List;
-
+import pokemon.*;
+import player.*;
 public class Battlefield {
     private final List<Pokemon> pokemonBattlefield = new ArrayList<>();
     private final Integer maxSlots = 3;

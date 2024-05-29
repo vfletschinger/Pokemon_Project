@@ -1,14 +1,15 @@
-public class Kamikaze implements Power{
+package power;
+import pokemon.*;
+public class AlreadySeen implements Power{
     private Boolean _wasAlreadyUsed;
 
-    public Kamikaze(){
+    public AlreadySeen(){
         _wasAlreadyUsed = false;
     }
     @Override
     public void use(Pokemon thisPokemon, Pokemon otherPokemon){
         if(!_wasAlreadyUsed){
-            thisPokemon.killPokemon();
-            otherPokemon.killPokemon();
+            thisPokemon.increaseNumberOfAttacksLeft();
             _wasAlreadyUsed = true;
         }
     }

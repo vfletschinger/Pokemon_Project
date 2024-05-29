@@ -1,3 +1,4 @@
+import player.*;
 public class DisplayTurn {
     private Player _user;
     private Player _cpu;
@@ -9,7 +10,7 @@ public class DisplayTurn {
     public String displayTurn(Integer whichTurn){
         String script = "\n";
         script += "##############################################################################################\n";
-        script += "############################################## TURN " + whichTurn.toString() + " ########################################\n";
+        script += "########################################## TURN " + whichTurn.toString() + " ############################################\n";
         script += "\n";
         //script += "CPU attacked\n\n";
         script += "PLAYER 1 (CPU) : \n";
