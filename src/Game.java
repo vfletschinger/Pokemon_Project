@@ -107,8 +107,13 @@ public class Game
     System.out.println("\nChoissisez vos pokémons !");
 
     bot.addPokemonOnBattlefield(bot.takeNextPokemonOnHand());
+    bot.addPokemonOnHand(bot.takeNextPokemonOnDraw());
+
     bot.addPokemonOnBattlefield(bot.takeNextPokemonOnHand());
+    bot.addPokemonOnHand(bot.takeNextPokemonOnDraw());
+
     bot.addPokemonOnBattlefield(bot.takeNextPokemonOnHand());
+    bot.addPokemonOnHand(bot.takeNextPokemonOnDraw());
 
     while(joueur.sizeOfBattlefield() < 3){
        Scanner input = new Scanner(System.in);
@@ -123,7 +128,8 @@ public class Game
            script += "/";
          }
        }
-       System.out.println(script);
+       script += ": ";
+       System.out.print(script);
        Integer pokemonUserHandIndice = input.nextInt();
 
        Pokemon newPokemonOnBattlefield = joueur.getPokemonOnHand(pokemonUserHandIndice);
@@ -145,7 +151,6 @@ public class Game
     while(!joueur.hasLost() || bot.hasLost()){
       turn += 1;
       if(whoStart == 0){
-
         // if there's territory Extension of the user
         for(Pokemon pokemonUser : joueur.getBattlefieldPokemons()){
           if(pokemonUser.getPowerType() == PowerName.TERRITORYEXTENSION && pokemonUser.getPowerType() != null){
@@ -160,8 +165,6 @@ public class Game
         System.out.println(displayEachTurn.displayTurn(turn));
 
         while(joueur.sizeOfBattlefield() < maxSlots){
-          Scanner input = new Scanner(System.in);
-
           String script= "";
           script += "\nQuel Pokemon voulez-vous mettre en combat ? Entrez un chiffre (";
           for(int i = 0; i < joueur.sizeOfHand(); i++){
@@ -173,8 +176,10 @@ public class Game
               script += "/";
             }
           }
-          System.out.println(script);
+          script += ": ";
+          System.out.print(script);
 
+          Scanner input = new Scanner(System.in);
           Integer pokemonUserHandIndice = input.nextInt();
 
           Pokemon newPokemonOnBattlefield = joueur.getPokemonOnHand(pokemonUserHandIndice);
@@ -192,7 +197,6 @@ public class Game
         //
       }
       else{
-
         // if there's territory extension of the user
         for(Pokemon pokemonUser : joueur.getBattlefieldPokemons()){
           if(pokemonUser.getPowerType() == PowerName.TERRITORYEXTENSION && pokemonUser.getPowerType() != null){
@@ -218,7 +222,8 @@ public class Game
               script += "/";
             }
           }
-          System.out.println(script);
+          script += ": ";
+          System.out.print(script);
 
           Integer pokemonUserHandIndice = input.nextInt();
 

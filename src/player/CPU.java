@@ -16,70 +16,74 @@ public class CPU extends Player {
         List<Pokemon> opponentPokemons = opponent.getBattlefieldPokemons();
         int attackNumber = 0;
 
+        for(Pokemon pokemon: getBattlefieldPokemons()){
+            if(pokemon.getPower() != null){
+                usePower(opponent,pokemon);
+            }
+        }
+
         for(Pokemon cpuPokemon : this.getBattlefieldPokemons()){
             attackNumber ++;
-            Integer bonus = 0;
             Pokemon pokemonTarget = pokemonTarget(cpuPokemon,opponentPokemons);
 
-            if(cpuPokemon.getPower() != null){
-                usePower(cpuPokemon,opponentPokemons.getFirst());
-            }
-
-            // faire une fonction affichage du string
-
-            String script = "Attaque numéro " + attackNumber + ":\n";
-            script += "L'ordinateur attaque avec " + cpuPokemon.getName();
-            script += "\n"+ cpuPokemon.getName() + " attaque " + pokemonTarget.getName() + " de l'utilisateur";
-
-            if(cpuPokemon.getAffinity().isStrongAgainst(pokemonTarget.getAffinity())){
-                bonus += 10;
-                script += "\nC'est super efficace !";
-            }
-            else if (pokemonTarget.getAffinity().isStrongAgainst(cpuPokemon.getAffinity())){
-                bonus -= 10;
-                script += "\nCe n'est pas très efficace !";
-            }
-
-            int damage = cpuPokemon.getAttack() + bonus;
-
-            if(cpuPokemon.getPowerType() == PowerName.WARRIORFERVOR && cpuPokemon.powerWasAlreadyUsed()){
-                script += "\nThanks to Warrior Fervor, your " + cpuPokemon.getName() + " gets +10 of attack !";
-                Integer bonusAttack = 10;
-                script += "\n-" + damage + "[+" + bonusAttack + "]" + " à " + pokemonTarget.getName();
-            }
-            else if(cpuPokemon.getPenalty()){
-                script += "\nDue to Warrior Fervor, your " + cpuPokemon.getName() + " gets -10 of attack :(";
-                Integer penaltyAttack = 10;
-                script += "\n-" + damage + "[+" + penaltyAttack + "]" + " à " + pokemonTarget.getName();
-            }
-            else{
-                script += "\n-" + damage + " à " + pokemonTarget.getName();
-            }
-
-            cpuPokemon.attackPokemon(pokemonTarget,bonus);
-
-            script += "\nLa vie de " + pokemonTarget.getName() + "de l'utilisateur est égale à " + pokemonTarget.getLife();
-            System.out.println(script);
+            action(cpuPokemon,pokemonTarget,attackNumber);
 
             if(pokemonTarget.isKO()){
 
                 System.out.println("L'ordinateur a tué un de vos pokémons :");
-                script = "\n" + cpuPokemon.getName() + " a tué " + pokemonTarget.getName() + " de l'utilisateur";
+                String
+                        script = "\n" + cpuPokemon.getName() + " a tué " + pokemonTarget.getName() + " de l'utilisateur";
                 System.out.println(script);
                 System.out.println();
 
-                    opponent.addPokemonToDiscard(pokemonTarget);
-                    opponentPokemons.remove(pokemonTarget);
-                    opponent.addPokemonToDiscard(pokemonTarget);
-                    opponentPokemons.remove(pokemonTarget);
+                opponent.addPokemonToDiscard(pokemonTarget);
+                opponentPokemons.remove(pokemonTarget);
             }
         }
     }
 
-    // à changer
-    public void setCPUPokemonBattlefield(){
-        super.addPokemonOnBattlefield(super.takeNextPokemonOnHand());
-		super.addPokemonOnHand(super.takeNextPokemonOnDraw());
+    private void action(Pokemon cpuPokemon, Pokemon pokemonTarget, Integer attackNumber){
+        Integer bonus = 0;
+        String script = "Attaque numéro " + attackNumber + ":\n";
+        script += "L'ordinateur attaque avec " + cpuPokemon.getName();
+        script += "\n"+ cpuPokemon.getName() + " attaque " + pokemonTarget.getName() + " de l'utilisateur";
+
+        if(cpuPokemon.getAffinity().isStrongAgainst(pokemonTarget.getAffinity())){
+            bonus += 10;
+            script += "\nC'est super efficace !";
+        }
+        else if (pokemonTarget.getAffinity().isStrongAgainst(cpuPokemon.getAffinity())){
+            bonus -= 10;
+            script += "\nCe n'est pas très efficace !";
+        }
+
+        int damage = cpuPokemon.getAttack() + bonus;
+        boolean isWarriorFervor = false;
+
+        if(cpuPokemon.getPower() != null){
+            if(cpuPokemon.getPowerType() == PowerName.WARRIORFERVOR){
+                isWarriorFervor = true;
+            }
+        }
+
+        if(isWarriorFervor && cpuPokemon.powerWasAlreadyUsed()){
+            script += "\nThanks to Warrior Fervor, your " + cpuPokemon.getName() + " gets +10 of attack !";
+            Integer bonusAttack = 10;
+            script += "\n-" + damage + "[+" + bonusAttack + "]" + " à " + pokemonTarget.getName();
+        }
+        else if(cpuPokemon.getPenalty()){
+            script += "\nDue to Warrior Fervor, your " + cpuPokemon.getName() + " gets -10 of attack :(";
+            Integer penaltyAttack = 10;
+            script += "\n-" + damage + "[+" + penaltyAttack + "]" + " à " + pokemonTarget.getName();
+        }
+        else{
+            script += "\n-" + damage + " à " + pokemonTarget.getName();
+        }
+
+        cpuPokemon.attackPokemon(pokemonTarget,bonus);
+
+        script += "\nLa vie de " + pokemonTarget.getName() + "de l'utilisateur est égale à " + pokemonTarget.getLife();
+        System.out.println(script);
     }
 
     private Pokemon pokemonTarget(Pokemon attackingPokemon, List<Pokemon> opponentPokemons){
@@ -136,25 +140,64 @@ public class CPU extends Player {
         return null;
     }
 
-    private void usePower(Pokemon cpuPokemon, Pokemon opponentPokemon){
-        if(cpuPokemon.getPower().getName().equals("Total Heal") && !cpuPokemon.getPower().getWasAlreadyUsed()){
-            Integer minimumLifePoints = 999;
-            List<Pokemon> pokemonsToHeal = new ArrayList<>();
+    private void usePower(Player opponent, Pokemon cpuPokemon){
 
-            for(Pokemon pokemon : this.getBattlefieldPokemons()){
-                if(pokemon.getLife() < minimumLifePoints){
-                    minimumLifePoints = pokemon.getLife();
-                    pokemonsToHeal.add(pokemon);
-                }
-                else if(pokemon.getLife().equals(minimumLifePoints)){
-                    pokemonsToHeal.add(pokemon);
+        Pokemon opponentPokemon = pokemonTarget(cpuPokemon,opponent.getBattlefieldPokemons());
+        String script = "";
+
+        if(cpuPokemon.getPower() != null){
+            if(cpuPokemon.getPowerType() == PowerName.TOTALHEAL && !cpuPokemon.powerWasAlreadyUsed()) {
+                Integer minimumLifePoints = 999;
+                List<Pokemon> pokemonsToHeal = new ArrayList<>();
+
+                for (Pokemon pokemon : this.getBattlefieldPokemons()) {
+                    if (pokemon.getLife() < minimumLifePoints) {
+                        minimumLifePoints = pokemon.getLife();
+                        pokemonsToHeal.add(pokemon);
+                    } else if (pokemon.getLife().equals(minimumLifePoints)) {
+                        pokemonsToHeal.add(pokemon);
+                    }
                 }
 
-                cpuPokemon.usePower(pokemonsToHeal.getFirst());
+                Pokemon pokemonAllie = pokemonsToHeal.getFirst();
+                usePokemonPower(cpuPokemon,pokemonAllie);
+
+                script = "L'utilisateur a utilisé le pouvoir " + cpuPokemon.getPowerName() + " sur ";
+                script += pokemonAllie.getName();
+            }
+            else if(opponentPokemon != null){
+                script = "L'utilisateur a utilisé le pouvoir " + cpuPokemon.getPowerName() + " sur ";
+                if(cpuPokemon.powerOnHimself()){
+                    usePokemonPower(cpuPokemon,cpuPokemon);
+                    script += "lui même";
+                }
+                else if(cpuPokemon.powerOnAllies()){
+                    usePokemonPower(cpuPokemon,this.getPokemonOnBattlefield(0));
+                    script += getPokemonNameOnBattlefield(0) + " !";
+                }
+                else if(cpuPokemon.powerOnEnnemies()) {
+                    usePokemonPower(cpuPokemon,opponentPokemon);
+                    script += opponentPokemon + " !";
+                }
+            }
+
+            if(cpuPokemon.getPowerType() == PowerName.TERRITORYEXTENSION){
+                addPokemonOnBattlefield(takeNextPokemonOnHand());
+                addPokemonOnHand(takeNextPokemonOnDraw());
+            }
+            if(cpuPokemon.getPowerType() == PowerName.KAMIKAZE && cpuPokemon.powerWasAlreadyUsed()){
+                        script = cpuPokemon.getName() + " explose avec " + opponentPokemon.getName() + "\n";
+
+                        opponent.addPokemonToDiscard(cpuPokemon);
+                        opponent.removePokemonOnBattlefield(cpuPokemon);
+                        opponent.addPokemonOnBattlefield(this.takeNextPokemonOnHand());
+                        if(!opponent.drawIsEmpty())
+                            opponent.addPokemonOnHand(this.takeNextPokemonOnHand());
+
+                        this.addPokemonToDiscard(opponentPokemon);
+                        removePokemonOnBattlefield(opponentPokemon);
             }
         }
-        else{
-            cpuPokemon.usePower(opponentPokemon);
-        }
+        System.out.println(script);
     }
 }

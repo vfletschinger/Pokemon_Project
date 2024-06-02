@@ -170,7 +170,6 @@ public class Pokemon {
     public String nameType(){
         return this._type.toString();
     }
-    public Integer getInitialLife() { return _initialLife; }
     public Integer getInitialAttack() { return _initialAttack; }
     public void addAttack(Integer value){
         _attack += value;
@@ -196,7 +195,6 @@ public class Pokemon {
     public void increaseNumberOfAttacksLeft(){
         _attacksLeft ++;
     }
-    public void extendsTerritory(){
-        _hasExtends = true;
-    }
+    public Integer getAttacksLeft(){ return _attacksLeft; }
+    public void decreaseNumberOfAttacksLeft(){  _attacksLeft --; }
 }

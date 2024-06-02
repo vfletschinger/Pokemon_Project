@@ -9,7 +9,6 @@ public class TerritoryExtension extends Power{
     @Override
     public void use(Pokemon thisPokemon, Pokemon otherPokemon){
         if(!_wasAlreadyUsed){
-            thisPokemon.extendsTerritory();
             _wasAlreadyUsed = true;
         }
     }

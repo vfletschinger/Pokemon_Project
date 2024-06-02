@@ -101,8 +101,6 @@ public abstract class Player {
     public List<Pokemon> getBattlefieldPokemons(){
         return this._battlefield.getPokemonList();
     }
-    public void usePokemonPower(Pokemon pokemonAttacker, Pokemon opponentPokemon){
-        pokemonAttacker.usePower(opponentPokemon);
-    }
+    public void usePokemonPower(Pokemon pokemonAttacker, Pokemon opponentPokemon){ pokemonAttacker.usePower(opponentPokemon); }
 
 }
