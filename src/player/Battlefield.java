@@ -2,8 +2,11 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 import pokemon.*;
+import power.PowerName;
+
 public class Battlefield {
-    private final List<Pokemon> pokemonBattlefield = new ArrayList<>();
+    private final List<Pokemon> _pokemons = new ArrayList<>();
+
     private final Integer maxSlots = 3;
     public Battlefield() {
     }
@@ -17,7 +20,7 @@ public class Battlefield {
      *  NONE
      */
     public void addPokemonToBattlefield(Pokemon pokemon) {
-        this.pokemonBattlefield.add(pokemon);
+        this._pokemons.add(pokemon);
     }
 
     public String displaySimpleLineBattlefield(char extrimity, char stroke, int lengthMinusTwo) {
@@ -33,14 +36,14 @@ public class Battlefield {
         return display;
     }
 
-    public String displayBattlefield() {
+    public String display() {
         String display = "";
         Integer maxLines = 113;
         Integer maxSlots = 3;
         boolean isPowerActivated = false;
 
         // une ligne d'affichage équivaut à 92 char max
-        if(pokemonBattlefield.size() > 3){
+        if(_pokemons.size() > 3){
             isPowerActivated = true;
             maxLines += 37;
             maxSlots = 4;
@@ -56,13 +59,13 @@ public class Battlefield {
 
         for (int i = 1; i < 8; i++) {
             display += "|  "; // 3 char
-            for (Pokemon pokemonDisplay : this.pokemonBattlefield) {
+            for (Pokemon pokemonDisplay : this._pokemons) {
                 if(i == 1) {
                     display += displaySimpleLineBattlefield('#', '-', 35); // 28 char (*3)
                     display += "  "; // 2 char (*3)
                 }
                 else if(i == 2) {
-                    if(pokemonDisplay.getPower().getName().equals("Warrior Fervor") && pokemonDisplay.getPower().getWasAlreadyUsed()){
+                    if(pokemonDisplay.getPowerType() == PowerName.TERRITORYEXTENSION && pokemonDisplay.getPowerType() != null){
                         display += "|    Attaque: " + pokemonDisplay.getInitialAttack(); // 16 char (*3)
                         display += "[+10]      |  "; // 14 char (*3)
                     }
@@ -99,7 +102,7 @@ public class Battlefield {
                 }
                 else if(i == 5) {
                     // Show the power
-                    display += "|  Power: " + pokemonDisplay.getPower().getName(); // 10 + x char (*3)
+                    display += "|  Power: " + pokemonDisplay.getPowerName(); // 10 + x char (*3)
                     for (int k = 0; k < 26 - pokemonDisplay.getName().length(); k++) {
                         display += " ";
                     }
@@ -117,7 +120,7 @@ public class Battlefield {
                     display += "  "; // 2 char (*3)
                 }
             }
-            for(int j = 0; j < maxSlots - pokemonBattlefield.size() ; j++){
+            for(int j = 0; j < maxSlots - _pokemons.size() ; j++){
                 // if there's less than 2 or 3 pokemon on battlefield
                 display += "                                     ";
             }
@@ -133,14 +136,27 @@ public class Battlefield {
         return display;
     }
 
-    public Pokemon chooseCurrentPokemon(Integer pokemonIndice){
-        return pokemonBattlefield.get(pokemonIndice);
+    public Pokemon get(Integer index){
+        return this._pokemons.get(index);
     }
-
-    public List<Pokemon> getPokemonBattlefieldList() {
-        return pokemonBattlefield;
+    public String getName(Integer index){ return get(index).getName(); }
+    public List<Pokemon> getPokemonList(){
+        List<Pokemon> newPokemonList = new ArrayList<>(_pokemons);
+        return newPokemonList;
     }
-
+    public void remove(Integer index){
+        this._pokemons.remove(index);
+    }
+    public boolean isEmpty(){
+        return this._pokemons.isEmpty();
+    }
+    public void remove(Pokemon pokemon){
+        this._pokemons.remove(pokemon);
+    }
+    public void add(Pokemon pokemon) {this._pokemons.add(pokemon);}
+    public Integer size(){
+        return this._pokemons.size();
+    }
     public Integer getMaxSlots() {
         return maxSlots;
     }

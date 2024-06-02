@@ -1,6 +1,6 @@
 package power;
 import pokemon.Pokemon;
-public class TerritoryExtension implements Power{
+public class TerritoryExtension extends Power{
     private Boolean _wasAlreadyUsed;
     private String _name = "Territory Extension";
     public TerritoryExtension(){
@@ -13,13 +13,12 @@ public class TerritoryExtension implements Power{
             _wasAlreadyUsed = true;
         }
     }
-
-    @Override
-    public String getName(){
-        return _name;
-    }
     @Override
     public Boolean getWasAlreadyUsed(){
         return _wasAlreadyUsed;
+    }
+    @Override
+    public PowerName getType(){
+        return PowerName.TERRITORYEXTENSION;
     }
 }

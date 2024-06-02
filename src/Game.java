@@ -13,7 +13,7 @@ public class Game
     //Creation of the Pokemon name list
     List<String> nameList = Arrays.asList("ALI AYADI", "RMOUQUE ILIAS", "KRAHENBUHL ADRIEN", "SCHNEIDER CATHIE-ANNE", "MARTENS LOUISE", "WESSLER-LAUX ERIC", "FONNE JEAN-PIERRE", "RICHARD VERONIQUE", "L'HELGUEN HERVE", "CORMAC CHESTER", "WEMMERT CEDRIC", "LUTTRINGER JEAN-ROMAIN", "LEQUENTREC ETIENNE", "MEYER CYRIL", "BREANT JULIAN", "ROY ISABELLE", "MOSSER RENE", "PERRIN ROMAIN", "ZIMMERMANN MATHIEU", "LAM FRANCIS", "TRESTINI MARC", "BOUSSETA IDRISSI-SELMA", "BRAUD AGNES", "LACHICHE NICOLAS", "LEBORGNE AURELIE", "GANCARSKI PIERRE", "BALDI GUILLAUME", "MAINGUY CLAIRE", "ETTAHRI BOUCHRA", "GRAZIANI CELINE", "GOSSA_JULIEN");
     //Creation of the Power list
-    List<Power> powerList = Arrays.asList(new AlreadySeen(),new WarriorFervor(), new Fear(), new TerritoryExtension(), new TotalHeal(), new EtherAffinity(), new LeadAffinity(), new Kamikaze());
+    List<Power> powerList = Arrays.asList(new AlreadySeen(),new WarriorFervor(), new Fear(), new TerritoryExtension(), new TotalHeal(), new EtherType(), new LeadType(), new Kamikaze());
 
     System.out.println("Lancement du jeu ...");
 
@@ -89,9 +89,7 @@ public class Game
     DisplayTurn displayEachTurn = new DisplayTurn(joueur, bot);
     Integer turn = 0;
 
-    bot.choicePokemonBattlefield(0);
-    bot.choicePokemonBattlefield(0);
-    bot.choicePokemonBattlefield(0);
+    // METTRE 3 POKE POUR CPU
 
     System.out.println(displayEachTurn.displayTurn(turn));
 
@@ -108,13 +106,17 @@ public class Game
   
     System.out.println("\nChoissisez vos pokémons !");
 
-    while(joueur.getBattlefield().getPokemonBattlefieldList().size() < 3){
+    bot.addPokemonOnBattlefield(bot.takeNextPokemonOnHand());
+    bot.addPokemonOnBattlefield(bot.takeNextPokemonOnHand());
+    bot.addPokemonOnBattlefield(bot.takeNextPokemonOnHand());
+
+    while(joueur.sizeOfBattlefield() < 3){
        Scanner input = new Scanner(System.in);
        String script= "";
        script += "Quel Pokemon voulez-vous mettre en combat ? Entrez un chiffre (";
-       for(int i = 0; i < joueur.getHand().getPokemonHand().size(); i++){
-         script += i + " " + joueur.getHand().getPokemonHand().get(i).getName();
-         if(i == joueur.getHand().getPokemonHand().size() - 1){
+       for(int i = 0; i < joueur.sizeOfHand(); i++){
+         script += i + " " + joueur.getPokemonNameOnHand(i);
+         if(i == joueur.sizeOfHand() - 1){
            script += ")";
          }
          else{
@@ -124,14 +126,14 @@ public class Game
        System.out.println(script);
        Integer pokemonUserHandIndice = input.nextInt();
 
-       Pokemon newPokemonOnBattlefield = joueur.getHand().getPokemonHand().get(pokemonUserHandIndice);
-       joueur.getBattlefield().getPokemonBattlefieldList().add(newPokemonOnBattlefield);
-       joueur.getHand().getPokemonHand().remove(newPokemonOnBattlefield);
-       if(!joueur.getDraw().getPokemonDraw().isEmpty()){
+       Pokemon newPokemonOnBattlefield = joueur.getPokemonOnHand(pokemonUserHandIndice);
+       joueur.addPokemonOnBattlefield(newPokemonOnBattlefield);
+       joueur.removePokemonOnHand(newPokemonOnBattlefield);
+       if(!joueur.drawIsEmpty()){
          System.out.println("Vous piochez une carte.");
-         joueur.getHand().getPokemonHand().add(joueur.getDraw().getPokemonDraw().remove(0));
+         joueur.addPokemonOnHand(joueur.takeNextPokemonOnDraw());
        }
-       System.out.println(joueur.getBattlefield().displayBattlefield());
+       System.out.println(joueur.displayBattlefield());
        System.out.println("Voici votre nouveau terrain !\n");
        System.out.println(joueur.displayHand());
     }
@@ -145,9 +147,11 @@ public class Game
       if(whoStart == 0){
 
         // if there's territory Extension of the user
-        for(Pokemon pokemonUser : joueur.getBattlefield().getPokemonBattlefieldList()){
-          if(pokemonUser.getPower().getName().equals("Territory Extension") && pokemonUser.getPower().getWasAlreadyUsed()){
-            maxSlots = 4;
+        for(Pokemon pokemonUser : joueur.getBattlefieldPokemons()){
+          if(pokemonUser.getPowerType() == PowerName.TERRITORYEXTENSION && pokemonUser.getPowerType() != null){
+            if(pokemonUser.powerOnHimself()){
+              maxSlots = 4;
+            }
           }
         }
 
@@ -155,14 +159,14 @@ public class Game
         bot.turn(joueur);
         System.out.println(displayEachTurn.displayTurn(turn));
 
-        while(joueur.getBattlefield().getPokemonBattlefieldList().size() < maxSlots){
+        while(joueur.sizeOfBattlefield() < maxSlots){
           Scanner input = new Scanner(System.in);
 
           String script= "";
           script += "\nQuel Pokemon voulez-vous mettre en combat ? Entrez un chiffre (";
-          for(int i = 0; i < joueur.getHand().getPokemonHand().size(); i++){
-            script += i + " " + joueur.getHand().getPokemonHand().get(i).getName();
-            if(i == joueur.getHand().getPokemonHand().size() - 1){
+          for(int i = 0; i < joueur.sizeOfHand(); i++){
+            script += i + " " + joueur.getPokemonNameOnHand(i);
+            if(i == joueur.sizeOfHand() - 1){
               script += ")";
             }
             else{
@@ -173,14 +177,14 @@ public class Game
 
           Integer pokemonUserHandIndice = input.nextInt();
 
-          Pokemon newPokemonOnBattlefield = joueur.getHand().getPokemonHand().get(pokemonUserHandIndice);
-          joueur.getBattlefield().getPokemonBattlefieldList().add(newPokemonOnBattlefield);
-          joueur.getHand().getPokemonHand().remove(newPokemonOnBattlefield);
-          if(joueur.getDraw().getPokemonDraw().isEmpty()){
+          Pokemon newPokemonOnBattlefield = joueur.getPokemonOnHand(pokemonUserHandIndice);
+          joueur.addPokemonOnBattlefield(newPokemonOnBattlefield);
+          joueur.removePokemonOnHand(newPokemonOnBattlefield);
+          if(joueur.drawIsEmpty()){
             System.out.println("Vous piochez une carte.");
-            joueur.getHand().getPokemonHand().add(joueur.getDraw().getPokemonDraw().remove(0));
+            joueur.addPokemonOnHand(joueur.takeNextPokemonOnDraw());
           }
-          System.out.println(joueur.getBattlefield().displayBattlefield());
+          System.out.println(joueur.displayBattlefield());
           System.out.println("Voici votre nouveau terrain !");
         }
 
@@ -190,22 +194,24 @@ public class Game
       else{
 
         // if there's territory extension of the user
-        for(Pokemon pokemonUser : joueur.getBattlefield().getPokemonBattlefieldList()){
-          if(pokemonUser.getPower().getName().equals("Territory Extension") && pokemonUser.getPower().getWasAlreadyUsed()){
-            maxSlots = 4;
+        for(Pokemon pokemonUser : joueur.getBattlefieldPokemons()){
+          if(pokemonUser.getPowerType() == PowerName.TERRITORYEXTENSION && pokemonUser.getPowerType() != null){
+            if(pokemonUser.powerOnHimself()){
+              maxSlots = 4;
+            }
           }
         }
 
         System.out.println(displayEachTurn.displayTurn(turn));
 
-        while(joueur.getBattlefield().getPokemonBattlefieldList().size() < maxSlots){
+        while(joueur.sizeOfBattlefield() < maxSlots){
           Scanner input = new Scanner(System.in);
 
           String script= "";
           script += "\nQuel Pokemon voulez-vous mettre en combat ? Entrez un chiffre (";
-          for(int i = 0; i < joueur.getHand().getPokemonHand().size(); i++){
-            script += i + " " + joueur.getHand().getPokemonHand().get(i).getName();
-            if(i == joueur.getHand().getPokemonHand().size() - 1){
+          for(int i = 0; i < joueur.sizeOfHand(); i++){
+            script += i + " " + joueur.getPokemonNameOnHand(i);
+            if(i == joueur.sizeOfHand() - 1){
               script += ")";
             }
             else{
@@ -216,14 +222,14 @@ public class Game
 
           Integer pokemonUserHandIndice = input.nextInt();
 
-          Pokemon newPokemonOnBattlefield = joueur.getHand().getPokemonHand().get(pokemonUserHandIndice);
-          joueur.getBattlefield().getPokemonBattlefieldList().add(newPokemonOnBattlefield);
-          joueur.getHand().getPokemonHand().remove(newPokemonOnBattlefield);
-          if(!joueur.getDraw().getPokemonDraw().isEmpty()){
+          Pokemon newPokemonOnBattlefield = joueur.getPokemonOnHand(pokemonUserHandIndice);
+          joueur.addPokemonOnHand(newPokemonOnBattlefield);
+          joueur.removePokemonOnHand(newPokemonOnBattlefield);
+          if(!joueur.drawIsEmpty()){
             System.out.println("Vous piochez une carte.");
-            joueur.getHand().getPokemonHand().add(joueur.getDraw().getPokemonDraw().remove(0));
+            joueur.addPokemonOnHand(joueur.takeNextPokemonOnDraw());
           }
-          System.out.println(joueur.getBattlefield().displayBattlefield());
+          System.out.println(joueur.displayBattlefield());
           System.out.println("Voici votre nouveau terrain !");
         }
 
@@ -233,10 +239,12 @@ public class Game
       }
     }
 
-    //A Pokemon attacks another one
-    System.out.println(bot.getHand().getPokemonHand().get(0).getLife());
-    joueur.getHand().getPokemonHand().get(0).attackPokemon(bot.getHand().getPokemonHand().get(0));
-    System.out.println(bot.getHand().getPokemonHand().get(0).getLife());
+    if(joueur.hasLost()){
+      System.out.println("Vous avez perdu");
+    }
+    else{
+      System.out.println("Vous avez gagné");
+    }
 
   }
 }

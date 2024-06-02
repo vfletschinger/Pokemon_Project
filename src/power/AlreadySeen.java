@@ -1,8 +1,7 @@
 package power;
 import pokemon.*;
-public class AlreadySeen implements Power{
+public class AlreadySeen extends Power{
     private Boolean _wasAlreadyUsed;
-    private String _name = "Already Seen";
     public AlreadySeen(){
         _wasAlreadyUsed = false;
     }
@@ -14,11 +13,11 @@ public class AlreadySeen implements Power{
         }
     }
     @Override
-    public String getName(){
-        return _name;
-    }
-    @Override
     public Boolean getWasAlreadyUsed(){
         return _wasAlreadyUsed;
+    }
+    @Override
+    public PowerName getType(){
+        return PowerName.ALREADYSEEN;
     }
 }

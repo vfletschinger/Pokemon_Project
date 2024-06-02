@@ -14,9 +14,9 @@ public class DisplayTurn {
         script += "\n";
         //script += "CPU attacked\n\n";
         script += "PLAYER 1 (CPU) : \n";
-        script += _cpu.getBattlefield().displayBattlefield();
+        script += _cpu.displayBattlefield();
         script += "######################################## VERSUS ##############################################\n";
-        script += _user.getBattlefield().displayBattlefield();
+        script += _user.displayBattlefield();
         script += "\nPOWERS : \nWarriorFervor : choose an ally Pokemon. For the rest of the game or until it dies this Pokemon deals 10 more damage." +
                   "\nFear : choose an enemy Pokemon. For the rest of the game or until it dies this Pokemon deals 10 less damage." +
                   "\nTotalHeal : choose an ally Pokemon. This Pokemon regains all its life." +

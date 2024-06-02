@@ -1,6 +1,6 @@
 package power;
 import pokemon.Pokemon;
-public class Kamikaze implements Power{
+public class Kamikaze extends Power{
     private Boolean _wasAlreadyUsed;
     private String _name = "Kamikaze";
     public Kamikaze(){
@@ -14,13 +14,12 @@ public class Kamikaze implements Power{
             _wasAlreadyUsed = true;
         }
     }
-
-    @Override
-    public String getName(){
-        return _name;
-    }
     @Override
     public Boolean getWasAlreadyUsed(){
         return _wasAlreadyUsed;
+    }
+    @Override
+    public PowerName getType(){
+        return PowerName.KAMIKAZE;
     }
 }

@@ -1,6 +1,6 @@
 package power;
 import pokemon.Pokemon;
-public class Fear implements Power{
+public class Fear extends Power{
     private Boolean _wasAlreadyUsed;
     private String _name = "Fear";
     public Fear(){
@@ -14,13 +14,12 @@ public class Fear implements Power{
             _wasAlreadyUsed = true;
         }
     }
-
-    @Override
-    public String getName(){
-        return _name;
-    }
     @Override
     public Boolean getWasAlreadyUsed(){
         return _wasAlreadyUsed;
+    }
+    @Override
+    public PowerName getType(){
+        return PowerName.FEAR;
     }
 }

@@ -6,7 +6,7 @@ import power.*;
 
 public class Pokemon {
     private final String _name;
-    private PokemonType _affinity;
+    private PokemonType _type;
     private Integer _life;
     private final Integer _initialLife;
     private Integer _attack;
@@ -38,7 +38,7 @@ public class Pokemon {
         }
         //Using the function Random to affect a random type from the list
         Random random = new Random();
-        _affinity = listType.get(random.nextInt(listType.size()));
+        _type = listType.get(random.nextInt(4));
 
         //Using the function Random and a list of possible life value to affect the life of the Pokemon
         ArrayList<Integer> lifeValues = new ArrayList<Integer>();
@@ -120,7 +120,7 @@ public class Pokemon {
      *  this._affinity : the affinity of a Pokemon instance
      */
     public PokemonType getAffinity(){
-        return this._affinity;
+        return this._type;
     }
 
     /* getLife : function : Integer : it gets you the life of a Pokemon instance
@@ -146,8 +146,31 @@ public class Pokemon {
     public Integer getAttack(){
         return this._attack;
     }
-    public Power getPower(){ return this._power; }
+
+    public void usePower(Pokemon otherPokemon) {
+        this._power.use(this,otherPokemon);
+    }
+    public String getPowerName(){
+        if(this._power != null){
+            return this._power.getName();
+        }
+        else{
+            return null;
+        }
+    }
+    public PowerName getPowerType(){
+        if(this._power != null){
+            return this._power.getType();
+        }
+        else{
+            return null;
+        }
+    }
     public Boolean getPenalty() { return _penalty;}
+    public String nameType(){
+        return this._type.toString();
+    }
+    public Integer getInitialLife() { return _initialLife; }
     public Integer getInitialAttack() { return _initialAttack; }
     public void addAttack(Integer value){
         _attack += value;
@@ -157,19 +180,22 @@ public class Pokemon {
     public void resetLife(){
         _life = _initialLife;
     }
-
-    public void becomeEtherAffinity(){
-        _affinity = PokemonType.ETHER;
+    public Power getPower(){
+        return this._power;
     }
-
-    public void becomeLeadAffinity(){
-        _affinity = PokemonType.LEAD;
+    public boolean powerOnAllies(){ return this._power.onAllies(); }
+    public boolean powerOnEnnemies(){ return this._power.onEnnemies(); }
+    public boolean powerOnHimself(){ return this._power.onHimself(); }
+    public boolean powerWasAlreadyUsed(){ return this._power.getWasAlreadyUsed(); }
+    public void becomeEtherType(){
+        _type = PokemonType.ETHER;
     }
-
+    public void becomeLeadType(){
+        _type = PokemonType.LEAD;
+    }
     public void increaseNumberOfAttacksLeft(){
         _attacksLeft ++;
     }
-
     public void extendsTerritory(){
         _hasExtends = true;
     }

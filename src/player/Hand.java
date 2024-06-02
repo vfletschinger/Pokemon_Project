@@ -2,41 +2,82 @@ package player;
 import java.util.ArrayList;
 import java.util.List;
 import pokemon.*;
-import player.*;
 import power.*;
 import java.util.Random;
 
 public class Hand {
 
-    private final List<Pokemon> _pokemonHand = new ArrayList<>();
+    private final List<Pokemon> _pokemons = new ArrayList<>();
 
     // Take an ArrayList of 5 names of Pokemons
     public Hand(List<String> nameList, List<Power> powerList){
         Random random = new Random();
         for(int i = 0; i < 5; i++){
             if (random.nextInt(0, 4) == 1 && !(powerList.isEmpty())){
-
                 Power power = powerList.get(random.nextInt(0,powerList.size()));
-                _pokemonHand.add(new Pokemon(nameList.get(i), power));
+                _pokemons.add(new Pokemon(nameList.get(i), power));
                 powerList.remove(power);
             }
             else {
-                _pokemonHand.add(new Pokemon(nameList.get(i)));
+                _pokemons.add(new Pokemon(nameList.get(i)));
             }
         }
     }
 
-    public void addPokemonToHand(Pokemon pokemon){
-        if(_pokemonHand.size() < 5){
-         _pokemonHand.add(pokemon);
+    public String displayHand(){
+        String display = "";
+
+        display = "En main:\n";
+        for(int i =0; i < size() ; i++){
+            display += "- " + getName(i) + ", " + getType(i) + ", ";
+            display += "Vie : " + getLife(i) + ", Attaque : " + getAttack(i) + "\n";
         }
-    }
-    public void deletePokemonOfHand(Pokemon pokemon){
-        _pokemonHand.remove(pokemon);
+
+        display += "\n";
+
+        return display;
     }
 
-    public List<Pokemon> getPokemonHand() {
-        return _pokemonHand;
+    public void add(Pokemon pokemon){
+        if(_pokemons.size() < 5){
+         _pokemons.add(pokemon);
+        }
+    }
+    public Pokemon get(Integer index){
+        return this._pokemons.get(index);
+    }
+    public String getName(Integer index){
+        return get(index).getName();
+    }
+    public Integer getLife(Integer index){
+        return get(index).getLife();
+    }
+    public Integer getAttack(Integer index){
+        return get(index).getAttack();
+    }
+    public PokemonType getType(Integer index){
+        return get(index).getAffinity();
+    }
+    public Integer size(){
+        return this._pokemons.size();
+    }
+    public String getTypeName(Integer index){
+        return get(index).nameType();
+    }
+    public boolean isEmpty(){
+        return this._pokemons.isEmpty();
+    }
+    public Pokemon getNext(Integer index){
+        return this._pokemons.get(index);
+    }
+    public Pokemon takeNext() {
+        if(!_pokemons.isEmpty())
+            return this._pokemons.removeFirst();
+        else
+            return null;
+    }
+    public void removePokemon(Pokemon pokemon){
+        _pokemons.remove(pokemon);
     }
 
 }

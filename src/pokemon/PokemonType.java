@@ -7,7 +7,6 @@ public enum PokemonType {
     ETHER,
     LEAD;
     public boolean isStrongAgainst(PokemonType otherType){
-
         switch(this){
             case AIR:
                 return (otherType == EARTH || otherType == LEAD);
@@ -20,10 +19,11 @@ public enum PokemonType {
             case ETHER:
                 return otherType != ETHER;
             case LEAD:
-                return false;
             default:
                 return false;
         }
-
+    }
+    public String Name(){
+        return this.toString();
     }
 }

@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import pokemon.*;
-import player.*;
+import power.PowerName;
+
 public class CPU extends Player {
 
     public CPU(Draw draw, Hand hand){
@@ -12,13 +13,19 @@ public class CPU extends Player {
 
     @Override
     public void turn(Player opponent) {
-        List<Pokemon> opponentPokemons = opponent.getBattlefield().getPokemonBattlefieldList();
+        List<Pokemon> opponentPokemons = opponent.getBattlefieldPokemons();
         int attackNumber = 0;
 
-        for(Pokemon cpuPokemon : this.getBattlefield().getPokemonBattlefieldList()){
+        for(Pokemon cpuPokemon : this.getBattlefieldPokemons()){
             attackNumber ++;
             Integer bonus = 0;
             Pokemon pokemonTarget = pokemonTarget(cpuPokemon,opponentPokemons);
+
+            if(cpuPokemon.getPower() != null){
+                usePower(cpuPokemon,opponentPokemons.getFirst());
+            }
+
+            // faire une fonction affichage du string
 
             String script = "Attaque numéro " + attackNumber + ":\n";
             script += "L'ordinateur attaque avec " + cpuPokemon.getName();
@@ -35,7 +42,7 @@ public class CPU extends Player {
 
             int damage = cpuPokemon.getAttack() + bonus;
 
-            if(cpuPokemon.getPower().getName().equals("Warrior Fervor") && cpuPokemon.getPower().getWasAlreadyUsed()){
+            if(cpuPokemon.getPowerType() == PowerName.WARRIORFERVOR && cpuPokemon.powerWasAlreadyUsed()){
                 script += "\nThanks to Warrior Fervor, your " + cpuPokemon.getName() + " gets +10 of attack !";
                 Integer bonusAttack = 10;
                 script += "\n-" + damage + "[+" + bonusAttack + "]" + " à " + pokemonTarget.getName();
@@ -67,6 +74,12 @@ public class CPU extends Player {
                     opponentPokemons.remove(pokemonTarget);
             }
         }
+    }
+
+    // à changer
+    public void setCPUPokemonBattlefield(){
+        super.addPokemonOnBattlefield(super.takeNextPokemonOnHand());
+		super.addPokemonOnHand(super.takeNextPokemonOnDraw());
     }
 
     private Pokemon pokemonTarget(Pokemon attackingPokemon, List<Pokemon> opponentPokemons){
@@ -123,4 +136,25 @@ public class CPU extends Player {
         return null;
     }
 
+    private void usePower(Pokemon cpuPokemon, Pokemon opponentPokemon){
+        if(cpuPokemon.getPower().getName().equals("Total Heal") && !cpuPokemon.getPower().getWasAlreadyUsed()){
+            Integer minimumLifePoints = 999;
+            List<Pokemon> pokemonsToHeal = new ArrayList<>();
+
+            for(Pokemon pokemon : this.getBattlefieldPokemons()){
+                if(pokemon.getLife() < minimumLifePoints){
+                    minimumLifePoints = pokemon.getLife();
+                    pokemonsToHeal.add(pokemon);
+                }
+                else if(pokemon.getLife().equals(minimumLifePoints)){
+                    pokemonsToHeal.add(pokemon);
+                }
+
+                cpuPokemon.usePower(pokemonsToHeal.getFirst());
+            }
+        }
+        else{
+            cpuPokemon.usePower(opponentPokemon);
+        }
+    }
 }
