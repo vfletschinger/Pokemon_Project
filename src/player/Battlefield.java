@@ -7,24 +7,42 @@ import power.PowerName;
 public class Battlefield {
     private final List<Pokemon> _pokemons = new ArrayList<>();
 
+    //Constructor
     public Battlefield() {
     }
 
 
-
-    public String displaySimpleLineBattlefield(char extrimity, char stroke, int lengthMinusTwo) {
+    /* displaySimpleLineBattlefield : function : String : returns the display of a Battlefield
+     * param :
+     *  extremity : char : the extremity of a String for the display
+     *  stroke : char : a line between the extremities
+     *  lengthMinusTwo : int : the length of the stroke (length - extremities length)
+     * local :
+     *  NONE
+     * return :
+     *  String : the display of a Battlefield
+     */
+    public String displaySimpleLineBattlefield(char extremity, char stroke, int lengthMinusTwo) {
 
         String display = "";
-        display += extrimity;
+        display += extremity;
 
         for (int i = 0; i < lengthMinusTwo; i++) {
             display += stroke;
         }
-        display += extrimity;
+        display += extremity;
 
         return display;
     }
 
+    /* display : function : String : returns the display of the battlefield
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  String : the display of the battlefield
+     */
     public String display() {
         String display = "";
         Integer maxLines = 113;
@@ -136,21 +154,83 @@ public class Battlefield {
         return display;
     }
 
+    /* get : function : Pokemon : return the Pokemon at a certain index
+     * param :
+     *  index : Integer : index of the Pokemon to return
+     * local :
+     *  NONE
+     * return :
+     *  Pokemon : the Pokemon at a certain index
+     */
     public Pokemon get(Integer index){
         return this._pokemons.get(index);
     }
+
+    /* getName : function : String : return the name of the Pokemon at a certain index
+     * param :
+     *  index : Integer : the index of the Pokemon
+     * local :
+     *  NONE
+     * return :
+     *  String : the name of the Pokemon at a certain index
+     */
     public String getName(Integer index){ return get(index).getName(); }
+
+    /* getPokemonList : function : List<Pokemon> : return the list of the Pokemon of the battlefield to display
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  List<Pokemon> : the list of the Pokemon of the battlefield
+     */
     public List<Pokemon> getPokemonList(){
         List<Pokemon> newPokemonList = new ArrayList<>(_pokemons);
         return newPokemonList;
     }
+
+    /* isEmpty : function : Boolean : return true if the battlefield is empty
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Boolean : return true is the battlefield is empty
+     */
     public boolean isEmpty(){
         return this._pokemons.isEmpty();
     }
+
+    /* remove : function : void : remove a Pokemon
+     * param :
+     *  pokemon : Pokemon : Pokemon to remove
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void remove(Pokemon pokemon){
         this._pokemons.remove(pokemon);
     }
+
+    /* add : function : void : add a Pokemon to the battlefield
+     * param :
+     *  pokemon : Pokemon : Pokemon to add to the battlefield
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void add(Pokemon pokemon) {this._pokemons.add(pokemon);}
+
+    /* size : function : Integer : return the number of Pokemons on the battlefield
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Integer : the number of Pokemons on the battlefield
+     */
     public Integer size(){
         return this._pokemons.size();
     }

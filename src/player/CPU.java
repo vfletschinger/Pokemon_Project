@@ -7,10 +7,19 @@ import power.PowerName;
 
 public class CPU extends Player {
 
+    //Constructor
     public CPU(Draw draw, Hand hand){
         super(draw,hand);
     }
 
+    /* turn : function : void : plays the turn of a CPU
+     * param :
+     *  opponent : Player : the player that the CPU attacks
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     @Override
     public void turn(Player opponent) {
         List<Pokemon> opponentPokemons = opponent.getBattlefieldPokemons();
@@ -42,6 +51,16 @@ public class CPU extends Player {
         }
     }
 
+    /* action : function : void : method that make a Pokemon attack another one
+     * param :
+     *  cpuPokemon : Pokemon : Pokemon that attacks
+     *  pokemonTarget : Pokemon : target of the attack
+     *  attackNumber : Integer : number of the attack
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     private void action(Pokemon cpuPokemon, Pokemon pokemonTarget, Integer attackNumber){
         Integer bonus = 0;
         String script = "Attaque numéro " + attackNumber + ":\n";
@@ -86,6 +105,15 @@ public class CPU extends Player {
         System.out.println(script);
     }
 
+    /* pokemonTarget : function : Pokemon : search the best target for the CPU
+     * param :
+     *  attackingPokemon : Pokemon : Pokemon who will attack
+     *  opponentPokemons : List<Pokemon> : Pokemon list of the opponent
+     * local :
+     *  NONE
+     * return :
+     *  Pokemon : Pokemon who will be targeted
+     */
     private Pokemon pokemonTarget(Pokemon attackingPokemon, List<Pokemon> opponentPokemons){
         Random random = new Random();
         List<Pokemon> pokemonsTarget = new ArrayList<>();
@@ -140,6 +168,15 @@ public class CPU extends Player {
         return null;
     }
 
+    /* usePower : function : void : use the power of a Pokemon to an enemy Pokemon
+     * param :
+     *  opponent : Player : opponent Player
+     *  cpuPokemon : Pokemon : Pokemon who uses its power
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     private void usePower(Player opponent, Pokemon cpuPokemon){
 
         Pokemon opponentPokemon = pokemonTarget(cpuPokemon,opponent.getBattlefieldPokemons());

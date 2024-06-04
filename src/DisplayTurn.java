@@ -2,12 +2,21 @@ import player.*;
 public class DisplayTurn {
     private Player _user;
     private Player _cpu;
+
+    //Constructor
     public DisplayTurn(Player user, Player cpu){
         _user = user;
         _cpu = cpu;
     }
 
-    //Displays the turn of a player
+    /* displayTurn : function : String : returns the display of a turn
+     * param :
+     *  whichTurn : Integer : indicates which turn it is
+     * local :
+     *  NONE
+     * return :
+     *  String : the display of the turn
+     */
     public String displayTurn(Integer whichTurn){
         String script = "\n";
         script += "##############################################################################################\n";

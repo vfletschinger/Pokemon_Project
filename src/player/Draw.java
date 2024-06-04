@@ -10,7 +10,7 @@ import java.util.Random;
 public class Draw {
     private final List<Pokemon> _pokemons = new ArrayList<>();
 
-    // Take an ArrayList of 15 or 16 names of Pokemons
+    // Constructor takes an ArrayList of 15 or 16 names of Pokemons
     public Draw(List<String> nameList, List<Power> powerList){
         Random random = new Random();
         if (nameList.size() == 16) {
@@ -31,6 +31,15 @@ public class Draw {
             }
         }
     }
+
+    /* takeNext : function : Pokemon : returns the next Pokemon of the draw
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Pokemon : the next Pokemon of the draw
+     */
     public Pokemon takeNext(){
         if(!_pokemons.isEmpty())
             return this._pokemons.removeFirst();
@@ -38,6 +47,14 @@ public class Draw {
             return null;
     }
 
+    /* isEmpty : function : Boolean : returns true if the draw is empty
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Boolean : returns true if the draw is empty
+     */
     public boolean isEmpty(){
         return _pokemons.isEmpty();
     }

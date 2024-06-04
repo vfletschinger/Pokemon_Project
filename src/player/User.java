@@ -6,9 +6,19 @@ import pokemon.*;
 import power.PowerName;
 
 public class User extends Player {
+    //Constructor
     public User(Draw draw, Hand hand){
 		super(draw,hand);
 	}
+
+    /* turn : function : void : plays the turn of a user
+     * param :
+     *  opponent : Player : the player that the user attacks
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     @Override
     public void turn(Player opponent){
 
@@ -72,6 +82,17 @@ public class User extends Player {
             pokemonAttacker.increaseNumberOfAttacksLeft();
         }
     }
+
+    /* action : function : void : method that make a Pokemon attack another one
+     * param :
+     *  cpuPokemon : Pokemon : Pokemon that attacks
+     *  pokemonTarget : Pokemon : target of the attack
+     *  attackNumber : Integer : number of the attack
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     private void action(Player opponent,Pokemon pokemonTarget, Pokemon pokemonAttacker){
             Integer bonus = 0;
             int damage = 0;
@@ -137,6 +158,15 @@ public class User extends Player {
             }
     }
 
+    /* inputUser : function : Integer : return the input of the user
+     * param :
+     *  script : String : script of the display to increase
+     *  pokemonList : List<Pokemon> : to display the Pokemon available to play
+     * local :
+     *  NONE
+     * return :
+     *  Integer : input of the user
+     */
     private Integer inputUser(String script, List<Pokemon> pokemonList){
         System.out.print(script);
         script = "";
@@ -159,6 +189,15 @@ public class User extends Player {
         return inputUser;
     }
 
+    /* usePower : function : void : use the power of a Pokemon to an enemy Pokemon
+     * param :
+     *  opponent : Player : opponent Player
+     *  pokemonAttacker : Pokemon : Pokemon who uses its power
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     private void usePower(Player opponent, Pokemon pokemonAttacker){
         if(pokemonAttacker.getPower() != null && !pokemonAttacker.powerWasAlreadyUsed()){
 

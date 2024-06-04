@@ -15,6 +15,7 @@ public class Pokemon {
     private Integer _attacksLeft;
     private Power _power;
 
+    //Constructor
     public Pokemon(String name){
 
         _name = name;
@@ -78,7 +79,6 @@ public class Pokemon {
      * return :
      *  Boolean : if the Pokemon is KO or not
      */
-
     public boolean isKO(){
         return this.getLife() <= 0;
     }
@@ -194,30 +194,156 @@ public class Pokemon {
      *  Integer : returns the initial attack of this Pokemon
      */
     public Integer getInitialAttack() { return _initialAttack; }
+
+    /* addAttack : function : void : add attack to this Pokemon
+     * param :
+     *  value : Integer : value to add to the attack of this Pokemon
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void addAttack(Integer value){
         _attack += value;
     }
+
+    /* setLife : function : void : set life to this Pokemon
+     * param :
+     *  value : Integer : value to set to the life of this Pokemon
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void setLife(Integer value) { _life = value; }
+
+    /* setPenalty : function : void : set penalty to this Pokemon
+     * param :
+     *  value : Boolean : value to set to the penalty of this Pokemon
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void setPenalty(Boolean value) { _penalty = value;}
+
+    /* resetLife : function : void : reset the life of this Pokemon
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void resetLife(){
         _life = _initialLife;
     }
+
+    /* getPower : function : Power : returns the power of this Pokemon
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Power : the power of this Pokemon
+     */
     public Power getPower(){
         return this._power;
     }
+
+    /* powerOnAllies : function : Boolean : returns true if the power is used on Allies Pokemons
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Boolean : returns true if the power is used on Allies Pokemons
+     */
     public boolean powerOnAllies(){ return this._power.onAllies(); }
+
+    /* powerOnEnemies : function : Boolean : returns true if the power is used on Enemies Pokemons
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Boolean : returns true if the power is used on Enemies Pokemons
+     */
     public boolean powerOnEnemies(){ return this._power.onEnemies(); }
+
+    /* powerOnHimself : function : Boolean : returns true if the power is used on this Pokemon
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Boolean : returns true if the power is used on this Pokemon
+     */
     public boolean powerOnHimself(){ return this._power.onHimself(); }
+
+    /* powerWasAlreadyUsed : function : Boolean : returns true if the power was already used
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Boolean : returns true if the power was already used
+     */
     public boolean powerWasAlreadyUsed(){ return this._power.getWasAlreadyUsed(); }
+
+    /* becomeEtherType : function : void : set the type of this Pokemon to Ether
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void becomeEtherType(){
         _type = PokemonType.ETHER;
     }
+
+    /* becomeLeadType : function : void : set the type of this Pokemon to Lead
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void becomeLeadType(){
         _type = PokemonType.LEAD;
     }
+
+    /* increaseNumberOfAttacksLeft : function : void : increase by 1 the number of attacks left of this Pokemon
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void increaseNumberOfAttacksLeft(){
         _attacksLeft ++;
     }
+
+    /* getAttacksLeft : function : Integer : returns the number of attacks left of this Pokemon
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Integer : the number of attacks left of this Pokemon
+     */
     public Integer getAttacksLeft(){ return _attacksLeft; }
+
+    /* decreaseNumberOfAttacksLeft : function : void : decrease by 1 the number of attacks left of this Pokemon
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void decreaseNumberOfAttacksLeft(){  _attacksLeft --; }
 }

@@ -6,6 +6,15 @@ public enum PokemonType {
     FIRE, // 4
     ETHER,
     LEAD;
+
+    /* isStrongAgainst : function : Boolean : return true if the type of a Pokemon is strong against another one
+     * param :
+     *  otherType : PokemonType : the type of the other Pokemon
+     * local :
+     *  NONE
+     * return :
+     *  Boolean : return true if the type of a Pokemon is strong against another one
+     */
     public boolean isStrongAgainst(PokemonType otherType){
         switch(this){
             case AIR:
