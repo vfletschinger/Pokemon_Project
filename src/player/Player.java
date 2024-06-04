@@ -13,39 +13,16 @@ public abstract class Player {
         _hand = hand;
         _battlefield = new Battlefield();
     }
-    public String displayDecks(){
-        String display = "";
-
-        display += "pioche: " + sizeOfDraw() + "pokemons\n";
-        display += "defausse: " + sizeOfDiscard() + "pokemons\n\n";
-
-        return display;
-    }
     public Boolean hasLost(){ return (handIsEmpty() && battlefieldIsEmpty()); }
     public void addPokemonToDiscard(Pokemon pokemon){
         _pokemonDiscard.add(pokemon);
     }
     public abstract void turn(Player opponent);
-    public Hand getHand (){
-        return this._hand;
-    }
-    public Draw getDraw (){
-        return this._draw;
-    }
     public Pokemon getPokemonOnHand(Integer index){
         return this._hand.get(index);
     }
     public String getPokemonNameOnHand(Integer index){
         return this._hand.getName(index);
-    }
-    public PokemonType getPokemonTypeOnHand(Integer index){
-        return this._hand.getType(index);
-    }
-    public Integer getPokemonLifeOnHand(Integer index){
-        return this._hand.getLife(index);
-    }
-    public Integer getPokemonAttackOnHand(Integer index){
-        return this._hand.getAttack(index);
     }
     public Pokemon takeNextPokemonOnHand(){
         return this._hand.takeNext();
@@ -64,9 +41,6 @@ public abstract class Player {
         return this._battlefield.get(index);
     }
     public String getPokemonNameOnBattlefield(Integer index) { return this._battlefield.getName(index); }
-    public void removePokemonOnBattlefield(Integer index){
-        this._battlefield.remove(index);
-    }
     public void removePokemonOnBattlefield(Pokemon pokemon){
         this._battlefield.remove(pokemon);
     }
@@ -75,9 +49,6 @@ public abstract class Player {
     }
     public Integer sizeOfBattlefield(){
         return this._battlefield.size();
-    }
-    public String getPokemonTypeNameOnHand(Integer index){
-        return this._hand.getTypeName(index);
     }
     public void removePokemonOnHand(Pokemon pokemon){
         this._hand.removePokemon(pokemon);
@@ -89,14 +60,8 @@ public abstract class Player {
     public Pokemon takeNextPokemonOnDraw(){
         return this._draw.takeNext();
     }
-    public Integer sizeOfDraw(){
-        return this._draw.size();
-    }
     public String displayBattlefield(){
         return this._battlefield.display();
-    }
-    public Integer sizeOfDiscard(){
-        return this._pokemonDiscard.size();
     }
     public List<Pokemon> getBattlefieldPokemons(){
         return this._battlefield.getPokemonList();

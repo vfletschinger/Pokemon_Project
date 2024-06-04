@@ -7,21 +7,10 @@ import power.PowerName;
 public class Battlefield {
     private final List<Pokemon> _pokemons = new ArrayList<>();
 
-    private final Integer maxSlots = 3;
     public Battlefield() {
     }
 
-    /* addPokemonToBattlefield : constructor : it creates an instance of the Pokemon class
-     * param :
-     *  NONE
-     * local :
-     *  NONE
-     * return :
-     *  NONE
-     */
-    public void addPokemonToBattlefield(Pokemon pokemon) {
-        this._pokemons.add(pokemon);
-    }
+
 
     public String displaySimpleLineBattlefield(char extrimity, char stroke, int lengthMinusTwo) {
 
@@ -155,9 +144,6 @@ public class Battlefield {
         List<Pokemon> newPokemonList = new ArrayList<>(_pokemons);
         return newPokemonList;
     }
-    public void remove(Integer index){
-        this._pokemons.remove(index);
-    }
     public boolean isEmpty(){
         return this._pokemons.isEmpty();
     }
@@ -167,8 +153,5 @@ public class Battlefield {
     public void add(Pokemon pokemon) {this._pokemons.add(pokemon);}
     public Integer size(){
         return this._pokemons.size();
-    }
-    public Integer getMaxSlots() {
-        return maxSlots;
     }
 }

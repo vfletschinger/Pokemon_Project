@@ -1,7 +1,5 @@
 package player;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import pokemon.*;
@@ -191,7 +189,7 @@ public class User extends Player {
                     Integer pokemonIndice = input.nextInt();
                     pokemonAttacker.usePower(getPokemonOnBattlefield(pokemonIndice));
                 }
-                else if(pokemonAttacker.powerOnEnnemies()){
+                else if(pokemonAttacker.powerOnEnemies()){
                     script= "";
                     script += "\nSur quel ennemi voulez vous utiliser votre pouvoir ? Entrez un chiffre (";
                     for(int i = 0; i < opponent.sizeOfBattlefield() ; i++){

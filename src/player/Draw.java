@@ -38,10 +38,6 @@ public class Draw {
             return null;
     }
 
-    public Integer size(){
-        return this._pokemons.size();
-    }
-
     public boolean isEmpty(){
         return _pokemons.isEmpty();
     }

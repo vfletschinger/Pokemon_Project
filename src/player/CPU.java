@@ -175,7 +175,7 @@ public class CPU extends Player {
                     usePokemonPower(cpuPokemon,this.getPokemonOnBattlefield(0));
                     script += getPokemonNameOnBattlefield(0) + " !";
                 }
-                else if(cpuPokemon.powerOnEnnemies()) {
+                else if(cpuPokemon.powerOnEnemies()) {
                     usePokemonPower(cpuPokemon,opponentPokemon);
                     script += opponentPokemon + " !";
                 }

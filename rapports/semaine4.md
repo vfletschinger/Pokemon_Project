@@ -89,20 +89,15 @@ Voici les nouvelles fonctions de la classe Player (les noms parlent d'eux mêmes
 - pour la classe Hand :
 public Pokemon getPokemonOnHand(Integer index)
 public String getPokemonNameOnHand(Integer index)
-public PokemonType getPokemonTypeOnHand(Integer index)
-public Integer getPokemonLifeOnHand(Integer index)
-public Integer getPokemonAttackOnHand(Integer index)
 public Pokemon takeNextPokemonOnHand()
 public Integer sizeOfHand()
 public void addPokemonOnHand(Pokemon pokemon)
 public boolean handIsEmpty()
 public String displayHand()
-public String getPokemonTypeNameOnHand(Integer index)
 public void removePokemonOnHand(Pokemon pokemon)
 - pour la classe Battlefield :
 public Pokemon getPokemonOnBattlefield(Integer index)
-public String getPokemonNameOnBattlefield(Integer index) 
-public void removePokemonOnBattlefield(Integer index)
+public String getPokemonNameOnBattlefield(Integer index)
 public void removePokemonOnBattlefield(Pokemon pokemon)
 public void addPokemonOnBattlefield(Pokemon pokemon)
 public Integer sizeOfBattlefield()
@@ -111,10 +106,7 @@ public List<Pokemon> getBattlefieldPokemons()
 - pour la classe Draw : 
 public boolean drawIsEmpty()
 public Pokemon takeNextPokemonOnDraw()
-public Integer sizeOfDraw()
 public String displayBattlefield()
-- pour la classe Discard
-public Integer sizeOfDiscard()
 ### classe Hand
 Voici les nouvelles fonctions de la classe Hand (les noms parlent d'eux mêmes) :
 public Pokemon get(Integer index)
@@ -123,9 +115,7 @@ public Integer getLife(Integer index)
 public Integer getAttack(Integer index)
 public PokemonType getType(Integer index)
 public Integer size()
-public String getTypeName(Integer index)
 public boolean isEmpty()
-public Pokemon getNext(Integer index)
 public Pokemon takeNext()
 public void removePokemon(Pokemon pokemon)
 ### classe Pokemon
@@ -154,17 +144,13 @@ Voici les nouvelles fonctions de la classe Battlefield (les noms parlent d'eux m
 public Pokemon get(Integer index)
 public String getName(Integer index)
 public List<Pokemon> getPokemonList()
-public void remove(Integer index)
 public boolean isEmpty()
 public void remove(Pokemon pokemon)
 public void add(Pokemon pokemon)
 public Integer size()
-public Integer getMaxSlots()
 
 ### classe Draw
 Voici les nouvelles fonctions de la classe Draw (les noms parlent d'eux mêmes) :
 public Pokemon takeNext()
-public Integer size()
 public boolean isEmpty()
 
-!!! L'uml n'a pas été modifié - il sera modifié dans un nouveau push dans la semaine !!!

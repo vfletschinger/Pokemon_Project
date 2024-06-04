@@ -55,20 +55,15 @@ public class Hand {
     public Integer getAttack(Integer index){
         return get(index).getAttack();
     }
+
     public PokemonType getType(Integer index){
         return get(index).getAffinity();
     }
     public Integer size(){
         return this._pokemons.size();
     }
-    public String getTypeName(Integer index){
-        return get(index).nameType();
-    }
     public boolean isEmpty(){
         return this._pokemons.isEmpty();
-    }
-    public Pokemon getNext(Integer index){
-        return this._pokemons.get(index);
     }
     public Pokemon takeNext() {
         if(!_pokemons.isEmpty())

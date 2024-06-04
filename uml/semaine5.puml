@@ -1,0 +1,263 @@
+ @startuml
+'https://plantuml.com/sequence-diagram
+
+
+'configuration du style
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+
+
+class Game  {
+	+ {static} main( args:String[] )
+}
+
+class DisplayTurn {
+    + <<create>> DisplayTurn(user : Player, cpu : Player)
+    - displayTurn(whichTurn : Integer) : String
+}
+
+package player{
+abstract class Player <<abstract>>{
+    + <<create>> Player()
+    + hasLost() : Boolean
+    + addPokemonToDiscard(pokemon : Pokemon)
+    + <<abstract>>turn(opponent : Player)
+    + getPokemonOnHand(index : Integer) : Pokemon
+    + getPokemonNameOnHand(index : Integer) : String
+    + takeNextPokemonOnHand () : Pokemon
+    + sizeOfHand () : Integer
+    + addPokemonOnHand (pokemon : Pokemon)
+    + handIsEmpty () : Boolean
+    + displayHand () : String
+    + getPokemonOnBattlefield (index : Integer) : Pokemon
+    + getPokemonNameOnBattlefield (index : Integer) : String
+    + removePokemonOnBattlefield (pokemon : Pokemon)
+    + addPokemonOnBattlefield (pokemon : Pokemon)
+    + sizeOfBattlefield () : Integer
+    + removePokemonOnHand (pokemon : Pokemon)
+    + battlefieldIsEmpty () : Boolean
+    + drawIsEmpty () : Boolean
+    + takeNextPokemonOnDraw () : Pokemon
+    + displayBattlefield () : String
+    + getBattlefieldPokemons () : Pokemon[]
+    + usePokemonPower (pokemonAttacker : Pokemon, opponentPokemon : Pokemon)
+
+}
+
+class User extends Player {
+    + <<create>> User(draw : Draw, hand : Hand)
+    + turn (opponent : Player)
+    - action (opponent : Player, pokemonTarget : Pokemon, pokemonAttacker : Pokemon)
+    - inputUser (script : String, pokemonList : Pokemon[]) : Integer
+    - usePower (opponent : Player, pokemonAttacker : Pokemon)
+}
+
+class CPU extends Player {
+    + <<create>> CPU(draw : Draw, hand : Hand)
+    + turn (opponent : Player)
+    - action (cpuPokemon : Pokemon, pokemonTarget : Pokemon, attackNumber : Integer)
+    - pokemonTarget (attackingPokemon : Pokemon, opponentPokemons : Pokemon[]) : Pokemon
+    - usePower (opponent : Player, cpuPokemon : Pokemon)
+}
+
+class Battlefield {
+    + <<create>> Battlefield()
+    + displaySimpleLineBattlefield(extrimity : char, stroke : char, lengthMinusTwo : Integer) : String
+    + display() : String
+    + get (index : Integer) : Pokemon
+    + getName (index : Integer) : String
+    + getPokemonList() : Pokemon[0..3]
+    + isEmpty () : Boolean
+    + remove (pokemon : Pokemon)
+    + add (pokemon : Pokemon)
+    + size () : Integer
+}
+
+class Draw{
+    +<<create>> Draw(nameList : String[], powerList : Power[])
+    + takeNext () : Pokemon
+    + isEmpty () : Boolean
+}
+
+class Hand{
+    +<<create>> Hand(nameList : String[], powerList : Pokemon[])
+    + displayHand () : String
+    + add (pokemon : Pokemon)
+    + get (index : Integer) : Pokemon
+    + getName (index : Integer) : String
+    + getLife (index : Integer) : Integer
+    + getAttack (index : Integer) : Integer
+    + getType (index : Integer) : PokemonType
+    + size () : Integer
+    + isEmpty () : Boolean
+    + takeNext () : Pokemon
+    + removePokemon (pokemon : Pokemon)
+}
+}
+
+package power{
+abstract class Power <<abstract>>{
+    + <<abstract>> use(thisPokemon : Pokemon, otherPokemon : Pokemon)
+    + <<abstract>> getWasAlreadyUsed () : Boolean
+    + <<abstract>> getType () : PowerName
+    + getName () : String
+    + onAllies () : Boolean
+    + onEnemies () : Boolean
+    + onHimself () : Boolean
+}
+
+enum PowerName<<enum>>{
+    ALREADYSEEN
+    ETHERTYPE
+    FEAR
+    KAMIKAZE
+    LEADTYPE
+    TERRITORYEXTENSION
+    TOTALHEAL
+    WARRIORFERVOR
+    + get () : String
+    + onHimself () : Boolean
+    + onEnemies () : Boolean
+    + onAllies () : Boolean
+}
+
+class WarriorFervor implements Power{
+    - _wasAlreadyUsed : Boolean
+    + <<create>> WarriorFervor()
+    + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
+    + getWasAlreadyUsed () : Boolean <<redefines>>
+    + getType () : PowerName <<redefines>>
+}
+
+class Fear implements Power{
+    - _wasAlreadyUsed : Boolean
+    + <<create>> Fear()
+    + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
+    + getWasAlreadyUsed () : Boolean <<redefines>>
+    + getType () : PowerName <<redefines>>
+}
+
+class TotalHeal implements Power{
+    - _wasAlreadyUsed : Boolean
+    + <<create>> TotalHeal()
+    + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
+    + getWasAlreadyUsed () : Boolean <<redefines>>
+    + getType () : PowerName <<redefines>>
+}
+
+class Kamikaze implements Power{
+    - _wasAlreadyUsed : Boolean
+    + <<create>> Kamikaze()
+    + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
+    + getWasAlreadyUsed () : Boolean <<redefines>>
+    + getType () : PowerName <<redefines>>
+}
+
+class EtherType implements Power{
+    - _wasAlreadyUsed : Boolean
+    + <<create>> EtherType()
+    + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
+    + getWasAlreadyUsed () : Boolean <<redefines>>
+    + getType () : PowerName <<redefines>>
+}
+
+class LeadType implements Power{
+    - _wasAlreadyUsed : Boolean
+    + <<create>> LeadType()
+    + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
+    + getWasAlreadyUsed () : Boolean <<redefines>>
+    + getType () : PowerName <<redefines>>
+}
+
+class AlreadySeen implements Power{
+    - _wasAlreadyUsed : Boolean
+    + <<create>> AlreadySeen()
+    + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
+    + getWasAlreadyUsed () : Boolean <<redefines>>
+    + getType () : PowerName <<redefines>>
+}
+
+class TerritoryExtension implements Power{
+    - _wasAlreadyUsed : Boolean
+    + <<create>> TerritoryExtension()
+    + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
+    + getWasAlreadyUsed () : Boolean <<redefines>>
+    + getType () : PowerName <<redefines>>
+}
+}
+package pokemon{
+class Pokemon {
+    - _name : String
+    - _life : Integer
+    - _initialLife : Integer
+    - _attack : Integer
+    - _initialAttack : Integer
+    - _penalty : Boolean
+    - _attacksLeft : Integer
+    - _hasExtends : Boolean
+    + <<create>> Pokemon(name : String)
+    + <<create>> Pokemon(name : String, power : Power)
+    + attackPokemon(pokemon : Pokemon, bonus : Integer)
+    + isKO () : Boolean
+    + getName() : String
+    + getAffinity() : PokemonType
+    + getLife() : Integer
+    + getAttack() : Integer
+    + usePower (otherPokemon : Pokemon)
+    + getPowerName () : String
+    + getPowerType () : PowerName
+    + getPenalty () : Boolean
+    + getInitialAttack () : Integer
+    + addAttack(value : Integer)
+    + setLife(value : Integer)
+    + setPenalty (value : Boolean)
+    + resetLife ()
+    + getPower () : Power
+    + powerOnAllies () : Boolean
+    + powerOnEnemies () : Boolean
+    + powerOnHimself () : Boolean
+    + powerWasAlreadyUsed () : Boolean
+    + becomeEtherType()
+    + becomeLeadType()
+    + increaseNumberOfAttacksLeft()
+    + getAttacksLeft () : Integer
+    + decreaseNumberOfAttacksLeft ()
+}
+
+enum PokemonType <<enum>>{
+    AIR
+    WATER
+    EARTH
+    FIRE
+    ETHER
+    LEAD
+    + isStrongAgainst (otherType : PokemonType) : Boolean
+}
+}
+
+Player *-u-> "1\n - _battlefield" Battlefield : > has a
+Player *-u-> "1\n - _draw" Draw : > has a
+Player *-d---> "*\n - _discard" Pokemon : > is composed of
+Player *--> "1\n - _hand" Hand : > has a
+Draw *--> "0..21\n - _pokemons" Pokemon : > is composed of
+Hand *--> "0..5\n - _pokemons" Pokemon : > has
+Battlefield *--> "0..3\n - _pokemons" Pokemon : > is composed of
+Pokemon *-l-> "1\n - _type" PokemonType : > has a type of
+Pokemon o--> "0..1\n - _power" Power : > has a
+DisplayTurn o--> "1\n - _user" User : > has a
+DisplayTurn o--> "1\n - _cpu" CPU : > has a
+Game .d.> Player : <<uses>>
+Game .d.> DisplayTurn : <<uses>>
+Game .d.> CPU : <<uses>>
+Game .d.> User : <<uses>>
+AlreadySeen ..> PowerName : <<uses>>
+WarriorFervor ..> PowerName : <<uses>>
+Fear ..> PowerName : <<uses>>
+EtherType ..> PowerName : <<uses>>
+LeadType ..> PowerName : <<uses>>
+Kamikaze ..> PowerName : <<uses>>
+TerritoryExtension ..> PowerName : <<uses>>
+TotalHeal ..> PowerName : <<uses>>
+
+@enduml

@@ -13,20 +13,8 @@ public class Pokemon {
     private Integer _initialAttack;
     private boolean _penalty = false;
     private Integer _attacksLeft;
-
-    private Boolean _hasExtends;
-
     private Power _power;
 
-
-    /* Pokemon : constructor : it creates an instance of the Pokemon class
-     * param :
-     *  NONE
-     * local :
-     *  NONE
-     * return :
-     *  NONE
-     */
     public Pokemon(String name){
 
         _name = name;
@@ -59,30 +47,17 @@ public class Pokemon {
         _initialAttack = atk;
         _initialLife = lf;
         _attacksLeft = 1;
-        _hasExtends = false;
         _power = null;
     }
+
+    //Constructor when the Pokemon has a power
 
     public Pokemon(String name, Power power){
         this(name);
         _power = power;
     }
 
-    /* attackPokemon : function : void : when a Pokemon attacks another one, it will do damage so
-     * in consequence the targeted pokemon's life will decrease
-     * param :
-     *  pokemon : Pokemon : an instance of a Pokemon class, it's the targeted pokemon
-     * local :
-     *  NONE
-     * return :
-     *  NONE
-     */
-    public void attackPokemon(Pokemon pokemon){
-        pokemon._life -= this._attack;
-    }
-
-    /* attackPokemon : function : void : when a Pokemon attacks another one, it will do damage so
-     * in consequence the targeted pokemon's life will decrease
+    /* attackPokemon : function : void : when a Pokemon attacks another one, it decreases the life of the other Pokemon (with a bonus if a power was used)
      * param :
      *  pokemon : Pokemon : an instance of a Pokemon class, it's the targeted pokemon
      *  bonus : Integer: a bonus of attack than can be negative or positive
@@ -95,29 +70,38 @@ public class Pokemon {
         pokemon._life -= this._attack + bonus;
     }
 
-    public boolean isKO(){
-        return this.getLife() <= 0;
-    }
-
-    /* getName : function : Integer : it gets you the name of a Pokemon instance
+    /* isKO : function : Boolean : returns true if the Pokemon is still alive
      * param :
      *  NONE
      * local :
      *  NONE
      * return :
-     *  this._name : the name of a Pokemon instance
+     *  Boolean : if the Pokemon is KO or not
+     */
+
+    public boolean isKO(){
+        return this.getLife() <= 0;
+    }
+
+    /* getName : function : String : it gets you the name of a Pokemon instance
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  String : the name of a Pokemon instance
      */
     public String getName(){
         return this._name;
     }
 
-    /* getAffinity : function : Integer : it gets you the affinity of a Pokemon instance
+    /* getAffinity : function : PokemonType : it gets you the affinity of a Pokemon instance
      * param :
      *  NONE
      * local :
      *  NONE
      * return :
-     *  this._affinity : the affinity of a Pokemon instance
+     *  PokemonType : the affinity of a Pokemon instance
      */
     public PokemonType getAffinity(){
         return this._type;
@@ -129,7 +113,7 @@ public class Pokemon {
      * local :
      *  NONE
      * return :
-     *  this._life : the life of a Pokemon instance
+     *  Integer : the life of a Pokemon instance
      */
     public Integer getLife(){
         return this._life;
@@ -141,15 +125,32 @@ public class Pokemon {
      * local :
      *  NONE
      * return :
-     *  this._attack : the attack of a Pokemon instance
+     *  Integer : the attack of a Pokemon instance
      */
     public Integer getAttack(){
         return this._attack;
     }
 
+    /* usePower : function : void : it uses the power of the Pokemon
+     * param :
+     *  otherPokemon : Pokemon : it's the Pokemon on which this Pokemon uses its power
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
     public void usePower(Pokemon otherPokemon) {
         this._power.use(this,otherPokemon);
     }
+
+    /* getPowerName : function : String : returns the name of the power
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  String : the name of this Pokemon's power
+     */
     public String getPowerName(){
         if(this._power != null){
             return this._power.getName();
@@ -158,6 +159,14 @@ public class Pokemon {
             return null;
         }
     }
+    /* getPowerType : function : PowerName : it gets you the type of the power
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  PowerName : the type of this Pokemon's power
+     */
     public PowerName getPowerType(){
         if(this._power != null){
             return this._power.getType();
@@ -166,10 +175,24 @@ public class Pokemon {
             return null;
         }
     }
+    /* getPenalty : function : Boolean : returns if this Pokemon has a penalty
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Boolean : returns true if this Pokemon has a penalty
+     */
     public Boolean getPenalty() { return _penalty;}
-    public String nameType(){
-        return this._type.toString();
-    }
+
+    /* getInitialAttack : function : Integer : returns the initial attack of this Pokemon
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  Integer : returns the initial attack of this Pokemon
+     */
     public Integer getInitialAttack() { return _initialAttack; }
     public void addAttack(Integer value){
         _attack += value;
@@ -183,7 +206,7 @@ public class Pokemon {
         return this._power;
     }
     public boolean powerOnAllies(){ return this._power.onAllies(); }
-    public boolean powerOnEnnemies(){ return this._power.onEnnemies(); }
+    public boolean powerOnEnemies(){ return this._power.onEnemies(); }
     public boolean powerOnHimself(){ return this._power.onHimself(); }
     public boolean powerWasAlreadyUsed(){ return this._power.getWasAlreadyUsed(); }
     public void becomeEtherType(){

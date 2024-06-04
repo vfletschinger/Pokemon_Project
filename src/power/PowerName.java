@@ -10,6 +10,8 @@ public enum PowerName {
     TOTALHEAL,
     WARRIORFERVOR;
 
+    //Returns the name of the powers
+
     public String get(){
         switch(this){
             case ALREADYSEEN: //sur lui même
@@ -33,6 +35,8 @@ public enum PowerName {
         }
     }
 
+    //Returns on which Pokemon was used the power
+
     public boolean onHimself(){
         switch(this){
             case ALREADYSEEN: //sur lui même
@@ -45,7 +49,7 @@ public enum PowerName {
                 return false;
         }
     }
-    public boolean onEnnemies(){
+    public boolean onEnemies(){
         switch(this){
             case FEAR: //sur un ennemi
                 return true;

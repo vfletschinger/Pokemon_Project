@@ -23,7 +23,4 @@ public enum PokemonType {
                 return false;
         }
     }
-    public String Name(){
-        return this.toString();
-    }
 }
