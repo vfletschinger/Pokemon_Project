@@ -69,6 +69,9 @@ public class Pokemon {
      */
     public void attackPokemon(Pokemon pokemon, Integer bonus){
         pokemon._life -= this._attack + bonus;
+        if(pokemon._life < 0){
+            setLife(0);
+        }
     }
 
     /* isKO : function : Boolean : returns true if the Pokemon is still alive

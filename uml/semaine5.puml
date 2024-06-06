@@ -14,7 +14,7 @@ class Game  {
 
 class DisplayTurn {
     + <<create>> DisplayTurn(user : Player, cpu : Player)
-    - displayTurn(whichTurn : Integer) : String
+    - displayTurn(whichTurn : Integer)
 }
 
 package player{
@@ -42,7 +42,7 @@ abstract class Player <<abstract>>{
     + displayBattlefield () : String
     + getBattlefieldPokemons () : Pokemon[]
     + usePokemonPower (pokemonAttacker : Pokemon, opponentPokemon : Pokemon)
-
+    + inputContinue()
 }
 
 class User extends Player {

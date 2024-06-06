@@ -28,24 +28,32 @@ public class User extends Player {
             }
         }
 
-        List<Boolean> pokemonsAlreadyUsed = new ArrayList<>();
+        List<Boolean> pokemonsIsAlreadyUsed = new ArrayList<>();
         for(int i = 0; i < sizeOfBattlefield(); i++){
-            pokemonsAlreadyUsed.add(false);
+            pokemonsIsAlreadyUsed.add(false);
         }
 
         for(int j = 0; j < sizeOfBattlefield(); j++){
-            String script = "";
-            script += "\nQuel Pokemon voulez-vous jouez ? Entrez un chiffre (";
-            for(int k = 0; k < sizeOfBattlefield() - j; k++){
-                if(pokemonsAlreadyUsed.get(k) == false) {
-                    script += k + " " + getPokemonNameOnBattlefield(k);
-                }
 
-                if(k == sizeOfBattlefield() - 1 - j){
-                    script += ")";
-                }
-                else{
-                    script += "/";
+            List<Pokemon> pokemonsNotUsed = new ArrayList<>();
+            for(int i = 0; i < sizeOfBattlefield(); i++){
+                if(!pokemonsIsAlreadyUsed.get(i))
+                    pokemonsNotUsed.add(getPokemonOnBattlefield(i));
+                else
+                    pokemonsNotUsed.add(null);
+            }
+
+            String script = "";
+            script += "\nWhich Pokemon do you want to play ? Enter an number (";
+            for(int k = 0; k < sizeOfBattlefield(); k++){
+                Pokemon pokemonDisplay = pokemonsNotUsed.get(k);
+                if(!pokemonsIsAlreadyUsed.get(k)) {
+                    script += k + " " + pokemonDisplay.getName();
+                    if (k == pokemonsNotUsed.size() - 1) {
+                        script += ")";
+                    } else {
+                        script += "/";
+                    }
                 }
             }
 
@@ -55,16 +63,17 @@ public class User extends Player {
             Scanner input = new Scanner(System.in);
             Integer pokemonUserIndice = input.nextInt();
 
-            while(pokemonsAlreadyUsed.get(pokemonUserIndice) == true || pokemonUserIndice > sizeOfBattlefield()){
-                System.out.println("Votre entrée est fausse, remetter le bon integer");
+            while(pokemonsIsAlreadyUsed.get(pokemonUserIndice) || pokemonUserIndice > sizeOfBattlefield()){
+                System.out.print("Your input is incorrect ! Please Retry : ");
                 input = new Scanner(System.in);
                 pokemonUserIndice = input.nextInt();
             }
+            pokemonsIsAlreadyUsed.set(pokemonUserIndice,true);
 
             Pokemon pokemonAttacker = this.getPokemonOnBattlefield(pokemonUserIndice);
 
             script = "";
-            script += "\nQuel Pokemon voulez-vous attaquer ? Entrez un chiffre (";
+            script += "\nWhich Pokemon do you want to attack ? Enter an number (";
             Integer pokemonOpponentIndice = this.inputUser(script,opponent.getBattlefieldPokemons());
             Pokemon pokemonOpponent = opponent.getPokemonOnBattlefield(pokemonOpponentIndice);
 
@@ -72,7 +81,7 @@ public class User extends Player {
             pokemonAttacker.decreaseNumberOfAttacksLeft();
 
             if(pokemonAttacker.getAttacksLeft() >= 1){
-                script += "\nQuel Pokemon voulez-vous attaquer ? Entrez un chiffre (";
+                script += "\nWhich Pokemon do you want to attack ? Enter an number (";
                 pokemonOpponentIndice = this.inputUser(script,opponent.getBattlefieldPokemons());
                 pokemonOpponent = opponent.getPokemonOnBattlefield(pokemonOpponentIndice);
                 action(opponent,pokemonOpponent,pokemonAttacker);
@@ -97,17 +106,17 @@ public class User extends Player {
             Integer bonus = 0;
             int damage = 0;
 
-            String script = "Détails de l'attaque :\n";
-            script += "Vous attaquez avec " + pokemonAttacker.getName();
-            script += "\n" + pokemonAttacker.getName() + " attaque " + pokemonTarget.getName() + " du CPU";
+            String script = "Attack details :\n";
+            script += "You attack with " + pokemonAttacker.getName();
+            script += "\n" + pokemonAttacker.getName() + " attacks " + pokemonTarget.getName() + " of the CPU";
 
             if(pokemonAttacker.getAffinity().isStrongAgainst(pokemonTarget.getAffinity())){
                 bonus += 10;
-                script += "\nC'est super efficace !";
+                script += "\nIt's super effective !";
             }
             else if (pokemonTarget.getAffinity().isStrongAgainst(pokemonAttacker.getAffinity())){
                 bonus -= 10;
-                script += "\nCe n'est pas très efficace !";
+                script += "\nIt's not very effective !";
             }
 
             damage = pokemonAttacker.getAttack() + bonus;
@@ -123,25 +132,25 @@ public class User extends Player {
             if(isWarriorFervor && pokemonAttacker.powerWasAlreadyUsed()){
                 script += "\nThanks to Warrior Fervor, your " + pokemonAttacker.getName() + " gets +10 of attack !";
                 Integer bonusAttack = 10;
-                script += "\n-" + damage + "[+" + bonusAttack + "]" + " à " + pokemonTarget.getName();
+                script += "\n-" + damage + "[+" + bonusAttack + "]" + " to " + pokemonTarget.getName();
             }
             else if(pokemonAttacker.getPenalty()){
                 script += "\nDue to Warrior Fervor, your " + pokemonAttacker.getName() + " gets -10 of attack :(";
                 Integer penaltyAttack = 10;
-                script += "\n-" + damage + "[+" + penaltyAttack + "]" + " à " + pokemonTarget.getName();
+                script += "\n-" + damage + "[+" + penaltyAttack + "]" + " to " + pokemonTarget.getName();
             }
             else{
-                script += "\n-" + damage + " à " + pokemonTarget.getName();
+                script += "\n-" + damage + " to " + pokemonTarget.getName();
             }
 
             pokemonAttacker.attackPokemon(pokemonTarget,bonus);
 
-            script += "\nLa vie de " + pokemonTarget.getName() + " du CPU est égale à " + pokemonTarget.getLife();
+            script += "\nThe life of " + pokemonTarget.getName() + " of the CPU is equals to " + pokemonTarget.getLife();
             System.out.println(script);
 
             if(pokemonTarget.isKO()){
-                System.out.println("Vous avez tué un pokemon de l'ordinateur");
-                script = pokemonAttacker.getName() + " a tué " + pokemonTarget.getName() + " du CPU";
+                System.out.println("You killed the pokemon of the CPU");
+                script = pokemonAttacker.getName() + " killed " + pokemonTarget.getName() + " of the CPU";
                 System.out.println(script);
 
                 if(pokemonTarget.getPowerType() == PowerName.TERRITORYEXTENSION && pokemonTarget.powerWasAlreadyUsed()){
@@ -183,7 +192,7 @@ public class User extends Player {
         }
 
         script += ": ";
-        System.out.println(script);
+        System.out.print(script);
         Integer inputUser = input.nextInt();
         System.out.println();
         return inputUser;
@@ -203,9 +212,9 @@ public class User extends Player {
 
             // faire une fonction affichage du string
             String script= "";
-            script += "\nVoulez vous utilisez le pouvoir de " + pokemonAttacker.getName() + " ?\n";
-            script += "Pour rappel, son pouvoir est " + pokemonAttacker.getPower().getName();
-            script += "\nEntrez un chiffre (0/ OUI | 1/ NON) : ";
+            script += "\nDo you want to use the power of " + pokemonAttacker.getName() + " ?\n";
+            script += "As a reminder, his/her power is " + pokemonAttacker.getPower().getName();
+            script += "\nEnter an input (0/ OUI | 1/ NON) : ";
             System.out.println(script);
 
             Scanner input = new Scanner(System.in);
@@ -214,7 +223,7 @@ public class User extends Player {
             if(yesOrNo == 0){
                 if(pokemonAttacker.powerOnAllies()){
                     script= "";
-                    script += "\nSur quel allié voulez vous utiliser votre pouvoir ? Entrez un chiffre (";
+                    script += "\nWhich Pokemon do you want to put into battle ? Enter a number (";
                     for(int i = 0; i < super.sizeOfBattlefield() ; i++){
                         script += i + " " + getPokemonNameOnBattlefield(i);
                         if(i == super.sizeOfBattlefield() - 1){
@@ -224,13 +233,19 @@ public class User extends Player {
                             script += "/";
                         }
                     }
-                    System.out.println(script);
+                    System.out.print(script);
                     Integer pokemonIndice = input.nextInt();
                     pokemonAttacker.usePower(getPokemonOnBattlefield(pokemonIndice));
+                    script = "\nThe power has been used\n";
+                    script += "Here the changes : \n";
+                    script += "\nYour Pokemons :\n";
+                    System.out.print(script);
+                    System.out.println(displayBattlefield());
+                    this.inputContinue();
                 }
                 else if(pokemonAttacker.powerOnEnemies()){
                     script= "";
-                    script += "\nSur quel ennemi voulez vous utiliser votre pouvoir ? Entrez un chiffre (";
+                    script += "\nWhich Pokemon do you want to put into battle ? Enter a number (";
                     for(int i = 0; i < opponent.sizeOfBattlefield() ; i++){
                         script += i + " " + opponent.getPokemonNameOnBattlefield(i);
                         if(i == opponent.sizeOfBattlefield() - 1){
@@ -240,12 +255,15 @@ public class User extends Player {
                             script += "/";
                         }
                     }
+                    script += ": ";
                     System.out.println(script);
                     Integer pokemonIndice = input.nextInt();
+
                     Pokemon opponentPokemon = opponent.getPokemonOnBattlefield(pokemonIndice);
                     pokemonAttacker.usePower(opponentPokemon);
+
                     if(pokemonAttacker.getPowerType() == PowerName.KAMIKAZE && pokemonAttacker.powerWasAlreadyUsed()){
-                        script = pokemonAttacker.getName() + " explose avec " + opponentPokemon.getName() + "\n";
+                        script = pokemonAttacker.getName() + " explodes with " + opponentPokemon.getName() + "\n";
 
                         opponent.addPokemonToDiscard(opponentPokemon);
                         opponent.removePokemonOnBattlefield(opponentPokemon);
@@ -255,12 +273,36 @@ public class User extends Player {
 
                         this.addPokemonToDiscard(pokemonAttacker);
                         removePokemonOnBattlefield(pokemonAttacker);
+
+                        script = "";
+                        script += "\nThe power has been used\n";
+                        script += "\nThe CPU draw a new card\n";
+                        script += "\nThe CPU add a new pokemon in its battlefield\n";
+                        script += "Here the changes : \n";
+                        script += "\nPokemons of the CPU :\n";
+                        System.out.print(script);
+                        System.out.println(opponent.displayBattlefield());
+                        this.inputContinue();
+                        System.out.println("Your Pokemons :");
+                        System.out.println(displayBattlefield());
+                        this.inputContinue();
+                    }
+                    else{
+                        script = "";
+                        script += "\nThe power has been used\n";
+                        script += "Here the changes : \n";
+                        script += "\nPokemons of the CPU :\n";
+                        System.out.print(script);
+                        System.out.println(opponent.displayBattlefield());
+                        this.inputContinue();
                     }
                 }
                 else if(pokemonAttacker.powerOnHimself()){
+                    super.usePokemonPower(pokemonAttacker, pokemonAttacker);
                     if(pokemonAttacker.getPowerType() == PowerName.TERRITORYEXTENSION && pokemonAttacker.powerWasAlreadyUsed()){
+                        this.displayHand();
                         script= "";
-                        script += "\nQuel Pokemon voulez-vous mettre en combat ? Entrez un chiffre (";
+                        script += "\nWhich Pokemon do you want to put into battle ? Enter a number (";
                         for(int i = 0; i < sizeOfHand(); i++){
                             script += i + " " + getPokemonNameOnHand(i);
                             if(i == sizeOfHand() - 1){
@@ -270,6 +312,7 @@ public class User extends Player {
                                 script += "/";
                             }
                         }
+                        script += ": ";
                         System.out.println(script);
 
                         //Scanner input = new Scanner(System.in);
@@ -280,12 +323,12 @@ public class User extends Player {
                         removePokemonOnHand(newPokemonOnBattlefield);
                     }
                     script = "";
-                    script += "\nL'effet a été appliqué !";
-                    super.usePokemonPower(pokemonAttacker, pokemonAttacker);
+                    script += "\nThe power has been played\n";
+                    script += "Here's the changes : \n";
+                    System.out.print(script);
+                    System.out.println(displayBattlefield());
+                    this.inputContinue();
                 }
-                System.out.println("\nLe pouvoir a bien été utilisé\n");
-                System.out.println("Voici le changement : \n");
-                System.out.println(displayBattlefield());
             }
         }
     }

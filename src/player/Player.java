@@ -1,6 +1,8 @@
 package player;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 import pokemon.*;
 
 public abstract class Player {
@@ -268,5 +270,19 @@ public abstract class Player {
      *  NONE
      */
     public void usePokemonPower(Pokemon pokemonAttacker, Pokemon opponentPokemon){ pokemonAttacker.usePower(opponentPokemon); }
+
+    /* inputContinue : function : void : when the player input is
+     * param :
+     *  opponent : Player : opponent Player
+     *  pokemonAttacker : Pokemon : Pokemon who uses its power
+     * local :
+     *  NONE
+     * return :
+     *  NONE
+     */
+    public void inputContinue(){
+        Scanner input = new Scanner(System.in);
+        input.nextLine();
+    }
 
 }

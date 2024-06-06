@@ -41,6 +41,8 @@ public enum PowerName {
         switch(this){
             case ALREADYSEEN: //sur lui même
                 return true;
+            case TERRITORYEXTENSION:
+                return true; //sur lui même
             case ETHERTYPE: //sur lui même
                 return true; //sur lui même
             case TOTALHEAL:
