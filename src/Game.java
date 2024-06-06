@@ -11,8 +11,10 @@ public class Game
   public static void main(String args[])
   {
     //Creation of the Pokemon name list
-    List<String> nameList = Arrays.asList("ALI AYADI", "RMOUQUE ILIAS", "KRAHENBUHL ADRIEN", "SCHNEIDER CATHIE-ANNE", "MARTENS LOUISE", "WESSLER-LAUX ERIC", "FONNE JEAN-PIERRE", "RICHARD VERONIQUE", "L'HELGUEN HERVE", "CORMAC CHESTER", "WEMMERT CEDRIC", "LUTTRINGER JEAN-ROMAIN", "LEQUENTREC ETIENNE", "MEYER CYRIL", "BREANT JULIAN", "ROY ISABELLE", "MOSSER RENE", "PERRIN ROMAIN", "ZIMMERMANN MATHIEU", "LAM FRANCIS", "TRESTINI MARC", "BOUSSETA IDRISSI-SELMA", "BRAUD AGNES", "LACHICHE NICOLAS", "LEBORGNE AURELIE", "GANCARSKI PIERRE", "BALDI GUILLAUME", "MAINGUY CLAIRE", "ETTAHRI BOUCHRA", "GRAZIANI CELINE", "GOSSA_JULIEN");
-    //Creation of the Power list
+    List<String> tempNameList= Arrays.asList("ALI AYADI", "RMOUQUE ILIAS", "KRAHENBUHL ADRIEN", "SCHNEIDER CATHIE-ANNE", "MARTENS LOUISE", "WESSLER-LAUX ERIC", "FONNE JEAN-PIERRE", "RICHARD VERONIQUE", "L'HELGUEN HERVE", "CORMAC CHESTER", "WEMMERT CEDRIC", "LUTTRINGER JEAN-ROMAIN", "LEQUENTREC ETIENNE", "MEYER CYRIL", "BREANT JULIAN", "ROY ISABELLE", "MOSSER RENE", "PERRIN ROMAIN", "ZIMMERMANN MATHIEU", "LAM FRANCIS", "TRESTINI MARC", "BOUSSETA IDRISSI-SELMA", "BRAUD AGNES", "LACHICHE NICOLAS", "LEBORGNE AURELIE", "GANCARSKI PIERRE", "BALDI GUILLAUME", "MAINGUY CLAIRE", "ETTAHRI BOUCHRA", "GRAZIANI CELINE", "GOSSA JULIEN", "KAEUFFER LAURENCE", "GANGLOFF CLEMENT", "WIESER LAURENT", "RYDZEK MARIANNE", "NAEGEL BENOIT", "GRAD DOMINIQUE", "HARISTOY JULIEN", "HECKEL ERIC", "LABBE TRISTAN", "SCHEIDT GUILLAUME");
+    ArrayList<String> nameList = new ArrayList<>(tempNameList);
+    //Creation of the Power list1
+
     List<Power> powerList = Arrays.asList(new AlreadySeen(),new WarriorFervor(), new Fear(), new TerritoryExtension(), new TotalHeal(), new EtherType(), new LeadType(), new Kamikaze());
 
     System.out.println("Starting game ...");
@@ -35,20 +37,17 @@ public class Game
     //First player
     List<String> firstNameListForDraw = new ArrayList<String>();
     List<String> firstNameListForHand = new ArrayList<String>();
-    List<String> nameListClone = new ArrayList<String>(nameList);
-    int nbPokemon = nameListClone.size();
+    int nbPokemon = nameList.size();
     for (int i = 0; i < numberPokemonInDraw; i++){
       int index = random.nextInt(0,nbPokemon);
-      firstNameListForDraw.add(nameListClone.get(index));
-      nameListClone.remove(index);
+      firstNameListForDraw.add(nameList.remove(index));
       nbPokemon--;
     }
     List<Power> powerListClone = new ArrayList<>(powerList);
     Draw FirstDraw = new Draw(firstNameListForDraw, powerListClone);
     for (int j = 0; j < 5; j++){
       int index = random.nextInt(0,nbPokemon);
-      firstNameListForHand.add(nameListClone.get(index));
-      nameListClone.remove(index);
+      firstNameListForHand.add(nameList.remove(index));
       nbPokemon--;
     }
     Hand FirstHand = new Hand(firstNameListForHand, powerListClone);
@@ -56,8 +55,7 @@ public class Game
     //Second player
     List<String> secondNameListForDraw = new ArrayList<String>();
     List<String> secondNameListForHand = new ArrayList<String>();
-    List<String> nameListClone2 = new ArrayList<String>(nameList);
-    nbPokemon = nameListClone2.size();
+    nbPokemon = nameList.size();
     if(numberPokemonInDraw == 15){
         numberPokemonInDraw = 16;
     }
@@ -66,16 +64,14 @@ public class Game
     }
     for (int i = 0; i < numberPokemonInDraw; i++){
       int index = random.nextInt(0,nbPokemon);
-      secondNameListForDraw.add(nameListClone2.get(index));
-      nameListClone2.remove(index);
+      secondNameListForDraw.add(nameList.remove(index));
       nbPokemon--;
     }
     List<Power> powerListClone2 = new ArrayList<Power>(powerList);
     Draw SecondDraw = new Draw(secondNameListForDraw, powerListClone2);
     for (int j = 0; j < 5; j++){
       int index = random.nextInt(0,nbPokemon);
-      secondNameListForHand.add(nameListClone2.get(index));
-      nameListClone2.remove(index);
+      secondNameListForHand.add(nameList.remove(index));
       nbPokemon--;
     }
     Hand SecondHand = new Hand(secondNameListForHand, powerListClone2);
