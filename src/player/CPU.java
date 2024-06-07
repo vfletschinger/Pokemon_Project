@@ -22,6 +22,11 @@ public class CPU extends Player {
      */
     @Override
     public void turn(Player opponent) {
+        System.out.println("""
+                    ###
+                    CPU'S TURN !!!
+                    ###
+                    """);
         List<Pokemon> opponentPokemons = opponent.getBattlefieldPokemons();
         int attackNumber = 0;
 
@@ -34,7 +39,6 @@ public class CPU extends Player {
         for(Pokemon cpuPokemon : this.getBattlefieldPokemons()){
             attackNumber ++;
             Pokemon pokemonTarget = pokemonTarget(cpuPokemon,opponentPokemons);
-
             action(cpuPokemon,pokemonTarget,attackNumber);
 
             if(pokemonTarget.isKO()){
@@ -209,7 +213,6 @@ public class CPU extends Player {
                 if(cpuPokemon.powerOnHimself()){
                     usePokemonPower(cpuPokemon,cpuPokemon);
                     script += "himself/herself";
-                    script += "\nHeres the changes :\n";
                 }
                 else if(cpuPokemon.powerOnAllies()){
                     usePokemonPower(cpuPokemon,this.getPokemonOnBattlefield(0));
@@ -238,13 +241,19 @@ public class CPU extends Player {
                         removePokemonOnBattlefield(opponentPokemon);
             }
         }
+        script += """
+                #################
+                Here's the changes
+                """;
+        script += "";
         System.out.println(script);
         this.inputContinue();
         System.out.println("Your pokemons : ");
-        opponent.displayBattlefield();
+        System.out.println(opponent.displayBattlefield());
         this.inputContinue();
         System.out.println("The pokemons of the CPU : ");
-        this.displayBattlefield();
+        System.out.println(this.displayBattlefield());
+        System.out.print("#################");
         this.inputContinue();
     }
 }

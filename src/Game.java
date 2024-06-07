@@ -169,45 +169,57 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
     //Asks the player which Pokemons he wants to put on his battlefield
 
     while(user.sizeOfBattlefield() < 3){
+      System.out.println(user.displayHand());
+      Scanner input = new Scanner(System.in);
+      String script= "";
+      script += "Which Pokemon do you want to put into battle ? Enter a number (";
+      for(int i = 0; i < user.sizeOfHand(); i++){
+        script += i + " " + user.getPokemonNameOnHand(i);
+        if(i == user.sizeOfHand() - 1){
+          script += ")";
+        }
+        else{
+          script += "/";
+        }
+      }
+      script += ": ";
+      System.out.print(script);
+      Integer pokemonUserHandIndice = input.nextInt();
 
-       Scanner input = new Scanner(System.in);
-       String script= "";
-       script += "Which Pokemon do you want to put into battle ? Enter a number (";
-       for(int i = 0; i < user.sizeOfHand(); i++){
-         script += i + " " + user.getPokemonNameOnHand(i);
-         if(i == user.sizeOfHand() - 1){
-           script += ")";
-         }
-         else{
-           script += "/";
-         }
-       }
-       script += ": ";
-       System.out.print(script);
-       Integer pokemonUserHandIndice = input.nextInt();
+      while(pokemonUserHandIndice > user.sizeOfHand() - 1 || pokemonUserHandIndice < 0){
+            System.out.print("Your input is incorrect ! Please Retry : ");
+            input = new Scanner(System.in);
+            pokemonUserHandIndice = input.nextInt();
+      }
 
-       Pokemon newPokemonOnBattlefield = user.getPokemonOnHand(pokemonUserHandIndice);
-       user.addPokemonOnBattlefield(newPokemonOnBattlefield);
-       user.removePokemonOnHand(newPokemonOnBattlefield);
+      Pokemon newPokemonOnBattlefield = user.getPokemonOnHand(pokemonUserHandIndice);
+      user.addPokemonOnBattlefield(newPokemonOnBattlefield);
+      user.removePokemonOnHand(newPokemonOnBattlefield);
 
-       //If the draw isn't empty, the player draws instantly a Pokemon
+      //If the draw isn't empty, the player draws instantly a Pokemon
 
-       if(!user.drawIsEmpty()){
-         System.out.println("\nYou draw a card.\\n");
-         user.addPokemonOnHand(user.takeNextPokemonOnDraw());
-       }
-       System.out.println(user.displayHand());
-       System.out.println("Here's your new battlefield !\\n");
-       System.out.println(user.displayBattlefield());
+      if(!user.drawIsEmpty()){
+        System.out.print("\nYou draw a card.\n");
+        user.inputContinue();
+        user.addPokemonOnHand(user.takeNextPokemonOnDraw());
+      }
+      System.out.println("Here's your new battlefield !");
+      System.out.println(user.displayBattlefield());
     }
 
     // POWERS
     Integer maxSlots = 3;
 
-    // Display the game - Start of the game
+    ///
+    /// Display the game - Start of the game
+    ///
     while(!user.hasLost() || bot.hasLost()){
-      turn += 1;
+      turn ++;
+      displayEachTurn.displayTurn(turn);
+
+      // if the CPU starts
       if(whoStart == 0){
+
         // if there's territory Extension of the user
         for(Pokemon pokemonUser : user.getBattlefieldPokemons()){
           if(pokemonUser.getPowerType() == PowerName.TERRITORYEXTENSION && pokemonUser.getPowerType() != null){
@@ -217,10 +229,10 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
           }
         }
 
-        System.out.println("The CPU attacks you \n");
+        // CPU plays its turn
         bot.turn(user);
-        displayEachTurn.displayTurn(turn);
 
+        // starts of User turn (Here We check if User have to draw cards to add pokemons on his battlefield
         while(user.sizeOfBattlefield() < maxSlots){
           String script= "";
           script += "\nWhich Pokemon do you want to put into battle ? Enter a number (";
@@ -239,11 +251,18 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
           Scanner input = new Scanner(System.in);
           Integer pokemonUserHandIndice = input.nextInt();
 
+          while(pokemonUserHandIndice > user.sizeOfHand() - 1 || pokemonUserHandIndice < 0){
+            System.out.print("Your input is incorrect ! Please Retry : ");
+            input = new Scanner(System.in);
+            pokemonUserHandIndice = input.nextInt();
+          }
+
           Pokemon newPokemonOnBattlefield = user.getPokemonOnHand(pokemonUserHandIndice);
           user.addPokemonOnBattlefield(newPokemonOnBattlefield);
           user.removePokemonOnHand(newPokemonOnBattlefield);
           if(user.drawIsEmpty()){
             System.out.println("You draw a card.");
+            user.inputContinue();
             user.addPokemonOnHand(user.takeNextPokemonOnDraw());
           }
           System.out.println(user.displayBattlefield());
@@ -251,7 +270,6 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
         }
 
         user.turn(bot);
-        //
       }
       else{
         // if there's territory extension of the user
@@ -263,8 +281,7 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
           }
         }
 
-        displayEachTurn.displayTurn(turn);
-
+        // starts of User turn (Here We check if User have to draw cards to add pokemons on his battlefield
         while(user.sizeOfBattlefield() < maxSlots){
           Scanner input = new Scanner(System.in);
 
@@ -284,11 +301,18 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
 
           Integer pokemonUserHandIndice = input.nextInt();
 
+          while(pokemonUserHandIndice > user.sizeOfHand() - 1 || pokemonUserHandIndice < 0){
+            System.out.print("Your input is incorrect ! Please Retry : ");
+            input = new Scanner(System.in);
+            pokemonUserHandIndice = input.nextInt();
+          }
+
           Pokemon newPokemonOnBattlefield = user.getPokemonOnHand(pokemonUserHandIndice);
           user.addPokemonOnHand(newPokemonOnBattlefield);
           user.removePokemonOnHand(newPokemonOnBattlefield);
           if(!user.drawIsEmpty()){
             System.out.println("You draw a card.");
+            user.inputContinue();
             user.addPokemonOnHand(user.takeNextPokemonOnDraw());
           }
           System.out.println(user.displayBattlefield());
@@ -296,16 +320,26 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
         }
 
         user.turn(bot);
-        System.out.println("The CPU attacks you \n");
+
+        //starts of bot turn
         bot.turn(user);
       }
     }
 
+    // The end of the game
     if(user.hasLost()){
-      System.out.println("You have lost");
+      System.out.println("""
+      ###
+      CPU IS THE WINNER
+      ###
+      """);
     }
     else{
-      System.out.println("You have win");
+      System.out.println("""
+      ###
+      YOU ARE THE WINNER
+      ###
+      """);
     }
 
   }

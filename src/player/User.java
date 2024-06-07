@@ -22,6 +22,12 @@ public class User extends Player {
     @Override
     public void turn(Player opponent){
 
+        System.out.println("""
+                    ###
+                    YOUR TURN !!!
+                    ###
+                    """);
+
         for(Pokemon pokemon: getBattlefieldPokemons()){
             if(pokemon.getPower() != null){
                 usePower(opponent,pokemon);
@@ -59,11 +65,10 @@ public class User extends Player {
 
             script += ": ";
             System.out.print(script);
-            script = "";
             Scanner input = new Scanner(System.in);
             Integer pokemonUserIndice = input.nextInt();
 
-            while(pokemonsIsAlreadyUsed.get(pokemonUserIndice) || pokemonUserIndice > sizeOfBattlefield()){
+            while(pokemonsIsAlreadyUsed.get(pokemonUserIndice) || pokemonUserIndice > sizeOfBattlefield() - 1){
                 System.out.print("Your input is incorrect ! Please Retry : ");
                 input = new Scanner(System.in);
                 pokemonUserIndice = input.nextInt();
@@ -75,6 +80,7 @@ public class User extends Player {
             script = "";
             script += "\nWhich Pokemon do you want to attack ? Enter an number (";
             Integer pokemonOpponentIndice = this.inputUser(script,opponent.getBattlefieldPokemons());
+
             Pokemon pokemonOpponent = opponent.getPokemonOnBattlefield(pokemonOpponentIndice);
 
             action(opponent,pokemonOpponent,pokemonAttacker);
@@ -193,7 +199,15 @@ public class User extends Player {
 
         script += ": ";
         System.out.print(script);
+
         Integer inputUser = input.nextInt();
+
+        while(inputUser > sizeOfBattlefield() - 1 || inputUser < 0){
+            System.out.print("Your input is incorrect ! Please Retry : ");
+            input = new Scanner(System.in);
+            inputUser = input.nextInt();
+        }
+
         System.out.println();
         return inputUser;
     }
@@ -219,6 +233,12 @@ public class User extends Player {
 
             Scanner input = new Scanner(System.in);
             int yesOrNo = input.nextInt();
+
+            while(yesOrNo > 1 || yesOrNo < 0){
+                System.out.print("Your input is incorrect ! Please Retry : ");
+                input = new Scanner(System.in);
+                yesOrNo = input.nextInt();
+            }
 
             if(yesOrNo == 0){
                 if(pokemonAttacker.powerOnAllies()){
@@ -315,8 +335,13 @@ public class User extends Player {
                         script += ": ";
                         System.out.println(script);
 
-                        //Scanner input = new Scanner(System.in);
                         Integer pokemonUserHandIndice = input.nextInt();
+
+                        while(pokemonUserHandIndice > sizeOfHand() - 1 || pokemonUserHandIndice < 0){
+                            System.out.print("Your input is incorrect ! Please Retry : ");
+                            input = new Scanner(System.in);
+                            pokemonUserHandIndice = input.nextInt();
+                        }
 
                         Pokemon newPokemonOnBattlefield = getPokemonOnHand(pokemonUserHandIndice);
                         addPokemonOnBattlefield(newPokemonOnBattlefield);
