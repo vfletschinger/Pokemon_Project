@@ -1,7 +1,6 @@
 package power;
 import pokemon.Pokemon;
 public class WarriorFervor extends Power{
-    private Boolean _wasAlreadyUsed;
 
     //Constructor
     public WarriorFervor(){

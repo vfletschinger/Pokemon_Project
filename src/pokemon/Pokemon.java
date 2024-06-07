@@ -349,4 +349,20 @@ public class Pokemon {
      *  NONE
      */
     public void decreaseNumberOfAttacksLeft(){  _attacksLeft --; }
+
+    /* toString : function : String : returns a recap of the class
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  String : recap of the class
+     */
+    public String toString (){
+        String res = "NAME : " + _name + "\nLIFE : " + _life + "\nATTACK : " + _attack + "\nTYPE : " + _type;
+        if (_power != null){
+            res += "\nPOWER : " + _power.getName();
+        }
+        return res;
+    }
 }

@@ -171,4 +171,19 @@ public class Hand {
         _pokemons.remove(pokemon);
     }
 
+    /* toString : function : String : returns a recap of the class
+     * param :
+     *  NONE
+     * local :
+     *  NONE
+     * return :
+     *  String : recap of the class
+     */
+    public String toString(){
+        String res = "";
+        for (Pokemon pokemon : _pokemons){
+            res += pokemon + " ";
+        }
+        return res;
+    }
 }

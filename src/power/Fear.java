@@ -1,7 +1,6 @@
 package power;
 import pokemon.Pokemon;
 public class Fear extends Power{
-    private Boolean _wasAlreadyUsed;
 
     //Constructor
     public Fear(){

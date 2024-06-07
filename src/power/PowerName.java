@@ -40,11 +40,8 @@ public enum PowerName {
     public boolean onHimself(){
         switch(this){
             case ALREADYSEEN: //sur lui même
-                return true;
             case TERRITORYEXTENSION:
-                return true; //sur lui même
             case ETHERTYPE: //sur lui même
-                return true; //sur lui même
             case TOTALHEAL:
                 return true; // sur lui même ou un allié
             default:
@@ -54,9 +51,7 @@ public enum PowerName {
     public boolean onEnemies(){
         switch(this){
             case FEAR: //sur un ennemi
-                return true;
             case KAMIKAZE: //sur un ennemi
-                return true;
             case LEADTYPE: //sur un ennemi
                 return true;
             default:
@@ -66,7 +61,6 @@ public enum PowerName {
     public boolean onAllies(){
         switch(this){
             case TOTALHEAL:
-                return true; // sur lui même ou un allié
             case WARRIORFERVOR:
                 return true; // sur lui même ou un allié
             default:

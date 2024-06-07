@@ -285,4 +285,14 @@ public abstract class Player {
         input.nextLine();
     }
 
+    public String toString (){
+        String res = "BATTLEFIELD : ";
+        res += _battlefield.toString() + "\nHAND : ";
+        res += _hand.toString() + "\nDRAW : ";
+        res += _draw.toString() + "\nDiscard : ";
+        for (Pokemon pokemon : _pokemonDiscard){
+            res += pokemon + " ";
+        }
+        return res;
+    }
 }

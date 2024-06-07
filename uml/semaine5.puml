@@ -14,7 +14,7 @@ class Game  {
 
 class DisplayTurn {
     + <<create>> DisplayTurn(user : Player, cpu : Player)
-    - displayTurn(whichTurn : Integer)
+    + displayTurn(whichTurn : Integer, p1 : Player, p2 : Player)
 }
 
 package player{
@@ -43,6 +43,7 @@ abstract class Player <<abstract>>{
     + getBattlefieldPokemons () : Pokemon[]
     + usePokemonPower (pokemonAttacker : Pokemon, opponentPokemon : Pokemon)
     + inputContinue()
+    + toString () : String
 }
 
 class User extends Player {
@@ -72,12 +73,14 @@ class Battlefield {
     + remove (pokemon : Pokemon)
     + add (pokemon : Pokemon)
     + size () : Integer
+    + toString () : String
 }
 
 class Draw{
     +<<create>> Draw(nameList : String[], powerList : Power[])
     + takeNext () : Pokemon
     + isEmpty () : Boolean
+    + toString () : String
 }
 
 class Hand{
@@ -93,18 +96,21 @@ class Hand{
     + isEmpty () : Boolean
     + takeNext () : Pokemon
     + removePokemon (pokemon : Pokemon)
+    + toString () : String
 }
 }
 
 package power{
 abstract class Power <<abstract>>{
-    + <<abstract>> use(thisPokemon : Pokemon, otherPokemon : Pokemon)
-    + <<abstract>> getWasAlreadyUsed () : Boolean
-    + <<abstract>> getType () : PowerName
+    # _wasAlreadyUsed : Boolean
+    + {abstract} use(thisPokemon : Pokemon, otherPokemon : Pokemon)
+    + {abstract} getWasAlreadyUsed () : Boolean
+    + {abstract} getType () : PowerName
     + getName () : String
     + onAllies () : Boolean
     + onEnemies () : Boolean
     + onHimself () : Boolean
+    + toString () : String
 }
 
 enum PowerName<<enum>>{
@@ -122,64 +128,56 @@ enum PowerName<<enum>>{
     + onAllies () : Boolean
 }
 
-class WarriorFervor implements Power{
-    - _wasAlreadyUsed : Boolean
+class WarriorFervor extends Power{
     + <<create>> WarriorFervor()
     + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
     + getWasAlreadyUsed () : Boolean <<redefines>>
     + getType () : PowerName <<redefines>>
 }
 
-class Fear implements Power{
-    - _wasAlreadyUsed : Boolean
+class Fear extends Power{
     + <<create>> Fear()
     + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
     + getWasAlreadyUsed () : Boolean <<redefines>>
     + getType () : PowerName <<redefines>>
 }
 
-class TotalHeal implements Power{
-    - _wasAlreadyUsed : Boolean
+class TotalHeal extends Power{
     + <<create>> TotalHeal()
     + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
     + getWasAlreadyUsed () : Boolean <<redefines>>
     + getType () : PowerName <<redefines>>
 }
 
-class Kamikaze implements Power{
-    - _wasAlreadyUsed : Boolean
+class Kamikaze extends Power{
     + <<create>> Kamikaze()
     + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
     + getWasAlreadyUsed () : Boolean <<redefines>>
     + getType () : PowerName <<redefines>>
 }
 
-class EtherType implements Power{
-    - _wasAlreadyUsed : Boolean
+class EtherType extends Power{
     + <<create>> EtherType()
     + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
     + getWasAlreadyUsed () : Boolean <<redefines>>
     + getType () : PowerName <<redefines>>
 }
 
-class LeadType implements Power{
-    - _wasAlreadyUsed : Boolean
+class LeadType extends Power{
     + <<create>> LeadType()
     + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
     + getWasAlreadyUsed () : Boolean <<redefines>>
     + getType () : PowerName <<redefines>>
 }
 
-class AlreadySeen implements Power{
-    - _wasAlreadyUsed : Boolean
+class AlreadySeen extends Power{
     + <<create>> AlreadySeen()
     + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
     + getWasAlreadyUsed () : Boolean <<redefines>>
     + getType () : PowerName <<redefines>>
 }
 
-class TerritoryExtension implements Power{
-    - _wasAlreadyUsed : Boolean
+class TerritoryExtension extends Power{
     + <<create>> TerritoryExtension()
     + use(thisPokemon : Pokemon, otherPokemon : Pokemon) <<redefines>>
     + getWasAlreadyUsed () : Boolean <<redefines>>
@@ -223,6 +221,7 @@ class Pokemon {
     + increaseNumberOfAttacksLeft()
     + getAttacksLeft () : Integer
     + decreaseNumberOfAttacksLeft ()
+    + toString () : String
 }
 
 enum PokemonType <<enum>>{
@@ -245,8 +244,7 @@ Hand *--> "0..5\n - _pokemons" Pokemon : > has
 Battlefield *--> "0..3\n - _pokemons" Pokemon : > is composed of
 Pokemon *-l-> "1\n - _type" PokemonType : > has a type of
 Pokemon o--> "0..1\n - _power" Power : > has a
-DisplayTurn o--> "1\n - _user" User : > has a
-DisplayTurn o--> "1\n - _cpu" CPU : > has a
+DisplayTurn ..> Player : <<uses>>
 Game .d.> Player : <<uses>>
 Game .d.> DisplayTurn : <<uses>>
 Game .d.> CPU : <<uses>>

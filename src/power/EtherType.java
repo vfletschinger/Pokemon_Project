@@ -1,7 +1,6 @@
 package power;
 import pokemon.Pokemon;
 public class EtherType extends Power{
-    private Boolean _wasAlreadyUsed;
 
     //Constructor
     public EtherType(){

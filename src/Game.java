@@ -83,7 +83,7 @@ public class Game
     Player bot = new CPU(SecondDraw, SecondHand);
 
     // Create Display turn
-    DisplayTurn displayEachTurn = new DisplayTurn(user, bot);
+    DisplayTurn displayEachTurn = new DisplayTurn();
     Integer turn = 0;
     
     String ascii = """
@@ -138,7 +138,7 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
     System.out.println("Choose your pokemons to figth against others pokemons !");
     user.inputContinue();
     System.out.println("\nHere's the turn 0 ! so you can have an idea of what it is : \n");
-    displayEachTurn.displayTurn(turn);
+    displayEachTurn.displayTurn(turn, user, bot);
     System.out.println("Here's the battlefield ! It's where you're going to fight against a CPU !\n");
 
 
@@ -187,7 +187,8 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
       Integer pokemonUserHandIndice = input.nextInt();
 
       while(pokemonUserHandIndice > user.sizeOfHand() - 1 || pokemonUserHandIndice < 0){
-            System.out.print("Your input is incorrect ! Please Retry : ");
+            System.out.print("Your input is in" +
+                    "correct ! Please Retry : ");
             input = new Scanner(System.in);
             pokemonUserHandIndice = input.nextInt();
       }
@@ -215,7 +216,7 @@ _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.
     ///
     while(!user.hasLost() || bot.hasLost()){
       turn ++;
-      displayEachTurn.displayTurn(turn);
+      displayEachTurn.displayTurn(turn, user, bot);
 
       // if the CPU starts
       if(whoStart == 0){

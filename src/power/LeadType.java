@@ -1,7 +1,6 @@
 package power;
 import pokemon.Pokemon;
 public class LeadType extends Power{
-    private Boolean _wasAlreadyUsed;
 
     //Constructor
     public LeadType(){

@@ -1,7 +1,6 @@
 package power;
 import pokemon.Pokemon;
 public class Kamikaze extends Power{
-    private Boolean _wasAlreadyUsed;
 
     //Constructor
     public Kamikaze(){
